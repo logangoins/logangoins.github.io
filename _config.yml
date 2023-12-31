@@ -7,8 +7,8 @@ github_username: "shellph1sh"
 linkedin_username: "ljgoins"
 
 theme: "minima"
-
-  #rss: rss
+minima:
+  skin: dark
 
 kramdown:
   syntax_highlighter_opts:
