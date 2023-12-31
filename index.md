@@ -5,5 +5,5 @@
 ---
 
 ## [My Experience with OSCP and the "Try Harder" Mindset](https://shellph1sh.github.io/2023/12/27/OSCP.html)
-
-December 27th 2023
+December 27th 2023 
+-----------------------------------------------------------
