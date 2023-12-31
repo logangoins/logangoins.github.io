@@ -6,7 +6,7 @@ description: "I love offensive security, and this is where I write about it."
 github_username: "shellph1sh"
 linkedin_username: "ljgoins"
 
-theme: jekyll-theme-midnight
+theme: jekyll-theme-hacker
 
 kramdown:
   syntax_highlighter_opts:
