@@ -4,4 +4,4 @@
 # Posts
 ---
 
-[My Experience with OSCP and the "Try Harder" Mindset](https://shellph1sh.github.io/2023/12/27/OSCP.html)
+## [My Experience with OSCP and the "Try Harder" Mindset](https://shellph1sh.github.io/2023/12/27/OSCP.html)
