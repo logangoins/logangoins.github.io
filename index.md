@@ -4,7 +4,12 @@
 # Posts
 ---
 
-## [My Experience with OSCP and the "Try Harder" Mindset](https://shellph1sh.github.io/2023/12/27/OSCP.html)
+## [My Experience with OSCP and the "Try Harder" Mindset](https://logan-goins.com/2023/12/27/OSCP.html)
 December 27th 2023 
+
+---
+
+## [Forest HTB Writeup](https://logan-goins.com/2024/1/1/Forest.html)
+January 1st 2024
 
 ---
