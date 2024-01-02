@@ -9,7 +9,7 @@ December 27th 2023
 
 ---
 
-## [Forest HTB Writeup](https://logan-goins.com/2024/1/1/Forest.html)
+## [Forest HTB Writeup](https://logan-goins.com/2024/01/01/Forest.html)
 January 1st 2024
 
 ---
