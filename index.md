@@ -4,7 +4,7 @@
 OSCP | CySA+ | Security+  
 Cybersecurity major\
 CPTC regional champion\
-Creator of HeadHunter C2 Framework: https://github.com/shellph1sh/HeadHunter
+[Creator of HeadHunter C2 Framework](https://github.com/shellph1sh/HeadHunter)
 
 # Posts
 ---
