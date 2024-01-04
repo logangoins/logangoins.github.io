@@ -9,7 +9,7 @@
 An adversary emulation framework, or a command and control (C2) framework, is a collection of tools that assist in an offensive security assessment, helping a Red Team or Penetration-testing team stay organized and concentrate all their access to the clients’ network. Usually used to simulate the tactics of an adversary which has gained access to the clients’ network.
 
 ### A Bit of Background On the Project
-HeadHunter is a project very dear to me. It started as a simple reverse shell multi-handler and reverse shell payload generator written in C while I was in high school. Through tons of work and passion, it quickly evolved as my own knowledge evolved, and my freshmen year of college, it was quickly transformed into an encrypted command and control framework. 
+HeadHunter is a project very dear to me. It started as a simple reverse shell multi-handler and reverse shell payload generator written in C while I was in high school. Through tons of work and passion, it quickly evolved as my own knowledge evolved, and in my freshmen year of college it was quickly transformed into an encrypted command and control framework. 
 
 Although I’ve worked on this project for over a year, it’s far from finished. I’m constantly planning features for the project, including team play, stronger cryptographic algorithms for communications, and expansion of the C2 agent feature set.
 
