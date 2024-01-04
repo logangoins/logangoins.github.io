@@ -129,5 +129,7 @@ HeadHunter can also task the agent to change the default sleep timer setting dep
 The operator of the HeadHunter C2 server also can background an agent session and interact with any session connected to the server infrastructure at the discretion of the operator.
 
 
+### Conclusion
+While I’m extremely happy with the state of the HeadHunter project, it lacks agent features and commands. Hopefully soon I’ll be able to integrate a multitude of Hunter agent commands and functionality, and possibly a stager for a more lightweight payload delivery process.
 
 
