@@ -111,3 +111,12 @@ And yes! HeadHunter notes that we’ve received a beacon connection from our com
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/0cd4463b-9e10-49c7-b710-2cdc99fbbbee)
 
 
+<br />
+
+We can now enter the “show sessions” command, or “show” for short, to see active agent sessions, as well as how long it has been since they’ve check in to the HeadHunter server.
+
+![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/de5460bb-36b5-43ed-a384-5659bb0251d5)
+
+<br />
+
+
