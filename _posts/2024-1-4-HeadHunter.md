@@ -19,4 +19,28 @@ If no commands are provided, the agent will sleep and continuously beacon until 
 
 
 ### Installation 
-Installation on HeadHunter should be relatively simple, as I’ve specifically developed HeadHunter to not utilize many dependencies, and the dependencies that I do list are completely optional, and simply expand the functionality of the project.
+Installation on HeadHunter should be relatively simple, as I’ve specifically developed HeadHunter to not utilize many dependencies, and most of the dependencies that I do list are optional or can be substituted, and simply expand the functionality of the project. Keep in mind that installing the various dependencies only takes a few moments and are highly recommended.
+
+`Note that HeadHunter was specifically developed with the Kali Linux platform in mind, so using a Kali install will result in the least troublesome install process. `
+ 
+Before the installation process, install the various dependencies for the project, with this command:
+```
+sudo apt install mingw-w64 gcc make objdump
+```
+
+Then for the actual installation process:
+
+1. Clone the repository
+``` 
+git clone https://github.com/Lionskey/HeadHunter.git
+```
+
+2. Change directory to source tree
+``` 
+cd HeadHunter/
+```
+
+3. Install HeadHunter binary and payload source
+```
+make && sudo make install
+```
