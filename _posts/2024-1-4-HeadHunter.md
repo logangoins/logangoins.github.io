@@ -125,11 +125,13 @@ Utilize the “use” command to interact with an agent, passing the ID from the
 
 <br />
 
-HeadHunter can also task the agent to change the default sleep timer setting depending on the objectives of the operation, with the ability to choose between a loud interactive session or a “low and slow” OPSEC safe operation. 
-The operator of the HeadHunter C2 server also can background an agent session and interact with any session connected to the server infrastructure at the discretion of the operator.
+That's all for the installation and simple demonstration.
 
+Also note: HeadHunter can task the agent to change the default sleep timer setting depending on the objectives of the operation, with the ability to choose between a loud interactive session or a “low and slow” OPSEC safe operation. And the operator of the HeadHunter C2 server can background an agent session and interact with any session connected to the server infrastructure at the discretion of the operator.
 
 ### Conclusion
 While I’m extremely happy with the state of the HeadHunter project, it lacks agent features and commands. Hopefully soon I’ll be able to integrate a multitude of Hunter agent commands and functionality, and possibly a stager for a more lightweight payload delivery process.
+
+Thank you so much for following along, and contributions are greatly appreciated!
 
 
