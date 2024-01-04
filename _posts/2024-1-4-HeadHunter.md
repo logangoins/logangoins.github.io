@@ -66,3 +66,13 @@ Payload Generation Options
 -l, --localhost <address>                              Hunter agent callback address
 ```
 
+Let’s generate a Linux agent that we can test locally on our Kali Linux machine. First let’s start up our HeadHunter listener on the loopback address: 127.0.0.1 and on port 443.
+
+We can use the command:
+```
+headhunter -l 127.0.0.1 443
+```
+
+
+![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/5693faff-8a84-4611-8e78-36454840338e)
+
