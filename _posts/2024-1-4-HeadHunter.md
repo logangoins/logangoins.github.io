@@ -21,7 +21,7 @@ If no commands are provided, the agent will sleep and continuously beacon until 
 ### Installation 
 Installation on HeadHunter should be relatively simple, as I’ve specifically developed HeadHunter to not utilize many dependencies, and most of the dependencies that I do list are optional or can be substituted, and simply expand the functionality of the project. Keep in mind that installing the various dependencies only takes a few moments and are highly recommended.
 
-`Note that HeadHunter was specifically developed with the Kali Linux platform in mind, so using a Kali install will result in the least troublesome install process. `
+***Note that HeadHunter was specifically developed with the Kali Linux platform in mind, so using a Kali install will result in the least troublesome install process. ***
  
 Before the installation process, install the various dependencies for the project, with this command:
 ```
@@ -44,3 +44,25 @@ cd HeadHunter/
 ```
 make && sudo make install
 ```
+
+After the HeadHunter server binary is moved to path, and the agent source is moved into the HeadHunter program folder, you should be able to see the HeadHunter help options:
+
+```
+shellph1sh@kali:~/HeadHunter$ headhunter --help
+
+Commands
+--------------------------------------------------------
+-h, --help                                             displays this help menu
+-l, --listen <address> <port>                          starts a listening HeadHunter server on a specified address and port
+-g, --generate <Payload Generation Options>            generates a Hunter agent to initiate a callback
+
+
+Payload Generation Options
+--------------------------------------------------------
+-p, --port <port>                                      Hunter agent callback port
+-o, --output <outputfile>                              file to output agent to
+-w, --platform <platform>                              Hunter agent target platform (win64, win32, linux)
+-f, --format <format>                                  Hunter agent output format (bin, shellcode)
+-l, --localhost <address>                              Hunter agent callback address
+```
+
