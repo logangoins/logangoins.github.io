@@ -113,10 +113,21 @@ And yes! HeadHunter notes that we’ve received a beacon connection from our com
 
 <br />
 
-We can now enter the “show sessions” command, or “show” for short, to see active agent sessions, as well as how long it has been since they’ve check in to the HeadHunter server.
+We can now enter the “show sessions” command, or “show” for short, to see active agent sessions, as well as how long it has been since they’ve checked in to the HeadHunter server.
 
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/de5460bb-36b5-43ed-a384-5659bb0251d5)
 
 <br />
+
+Utilize the “use” command to interact with an agent, passing the ID from the “show” command as a parameter. Note that we can now queue the agent with tasks to execute and receive output back. For example, we can execute system commands with the “shell” command, using the command we want to execute as a parameter:
+
+![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/561a5cf8-b731-4d8d-aadf-b69240aebe64)
+
+<br />
+
+HeadHunter can also task the agent to change the default sleep timer setting depending on the objectives of the operation, with the ability to choose between a loud interactive session or a “low and slow” OPSEC safe operation. 
+The operator of the HeadHunter C2 server also can background an agent session and interact with any session connected to the server infrastructure at the discretion of the operator.
+
+
 
 
