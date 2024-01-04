@@ -93,3 +93,21 @@ headhunter -g -l 127.0.0.1 -p 443 -w linux -f bin -o Hunter
 
 Note that the HeadHunter operator can execute any shell command through the HeadHunter server console, providing flexibility for the operator.
 
+<br />
+
+Ok, now execute the compiled agent in another window, and if all goes well, we should receive a callback notifier in our C2 server console output.
+
+```
+shellph1sh@kali:~/HeadHunter$ ./Hunter&     
+[1] 11284
+                                                                                
+shellph1sh@kali:~/HeadHunter$ 
+```
+
+<br />
+
+And yes! HeadHunter notes that we’ve received a beacon connection from our compiled agent!
+
+![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/0cd4463b-9e10-49c7-b710-2cdc99fbbbee)
+
+
