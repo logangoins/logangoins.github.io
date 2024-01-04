@@ -6,7 +6,7 @@
 
 
 ### What is an Adversary Emulation Framework?
-An adversary emulation framework, or a command and control (C2) framework, is a collection of tools that assist in an offensive security assessment, helping a Red Team or Penetration-testing team stay organized and concentrate all their access to the clients’ network. Usually used to simulate the tactics of an adversary which has gained access to the clients’ network.
+An adversary emulation framework, or a command and control (C2) framework, is a collection of tools that assist in an offensive security assessment, helping a Red Team or Penetration-testing team stay organized and concentrate all their access to the clients’ network. Usually used to simulate the tactics of an adversary which holds a foothold, or initial access on the clients’ network.
 
 ### A Bit of Background On the Project
 HeadHunter is a project very dear to me. It started as a simple reverse shell multi-handler and reverse shell payload generator written in C while I was in high school. Through tons of work and passion, it quickly evolved as my own knowledge evolved, and in my freshmen year of college it was quickly transformed into an encrypted command and control framework. 
