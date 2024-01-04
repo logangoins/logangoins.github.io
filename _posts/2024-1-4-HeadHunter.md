@@ -1,5 +1,4 @@
-# Diving into HeadHunter, an Adversary Emulation Framework written in C
-
+# Diving into HeadHunter, an Adversary Emulation Framework Written in C
 
 <p align="center">
   <img src="https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/38a0993b-569d-4a87-9742-675d2759407f">
@@ -11,8 +10,13 @@ HeadHunter is a project very dear to me. It started as a simple reverse shell mu
 Although I’ve worked on this project for over a year, it’s far from finished. I’m constantly planning features for the project, including team play, stronger cryptographic algorithms for communications, and expansion of the C2 agent feature set.
 
 ### Project Description
-```
-HeadHunter is an adversary emulation framework and command & control (C2) server with asynchronous, beacon based encrypted communications. HeadHunter also includes compatible custom agents and a server bundled agent generator with cross compilation capabilities. HeadHunter has functionality to generate binary and shellcode agents for Windows 32- and 64-bit, and GNU/Linux based operating systems.
-Once deployed, a Hunter agent will call back to the HeadHunter command and control infrastructure, requesting agent tasking from the operator until provided. If no commands are provided, the agent will sleep and continuously beacon until the agent is provided with instructions.
-```
 
+HeadHunter is an adversary emulation framework and command & control (C2) server with asynchronous, beacon based encrypted communications.
+HeadHunter also includes compatible custom agents and a server bundled agent generator with cross compilation capabilities.
+HeadHunter has functionality to generate binary and shellcode agents for Windows 32- and 64-bit, and GNU/Linux based operating systems.
+Once deployed, a Hunter agent will call back to the HeadHunter command and control infrastructure, requesting agent tasking from the operator until provided.
+If no commands are provided, the agent will sleep and continuously beacon until the agent is provided with instructions.
+
+
+### Installation 
+Installation on HeadHunter should be relatively simple, as I’ve specifically developed HeadHunter to not utilize many dependencies, and the dependencies that I do list are completely optional, and simply expand the functionality of the project.
