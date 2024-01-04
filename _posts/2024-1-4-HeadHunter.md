@@ -89,4 +89,7 @@ headhunter -g -l 127.0.0.1 -p 443 -w linux -f bin -o Hunter
 
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/10fcba59-c191-4daf-b45f-f4fb639932b4)
 
+</br>
+
+Note that the HeadHunter operator can execute any shell command through the HeadHunter server console, providing flexibility for the operator.
 
