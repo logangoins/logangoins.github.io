@@ -10,12 +10,12 @@ CPTC regional champion\
 # Posts
 ---
 
-## [My Experience with OSCP and the "Try Harder" Mindset](https://logan-goins.com/2023/12/27/OSCP.html)
-December 27th 2023 
+## [Forest HTB Writeup](https://logan-goins.com/2024/01/01/Forest.html)
+January 1st 2024
 
 ---
 
-## [Forest HTB Writeup](https://logan-goins.com/2024/01/01/Forest.html)
-January 1st 2024
+## [My Experience with OSCP and the "Try Harder" Mindset](https://logan-goins.com/2023/12/27/OSCP.html)
+December 27th 2023 
 
 ---
