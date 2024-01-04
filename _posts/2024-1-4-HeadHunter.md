@@ -70,7 +70,7 @@ Payload Generation Options
 
 <br />
 
-Let’s generate a Linux agent and initiate a callback locally on our Kali Linux machine. First let’s start up our HeadHunter listener on the loopback address: 127.0.0.1 and on port 443.
+Let’s see HeadHunter in action! First start up our HeadHunter listener on the loopback address: 127.0.0.1 and on port 443.
 
 We can use the command:
 ```
