@@ -45,7 +45,7 @@ cd HeadHunter/
 make && sudo make install
 ```
 
-</br>
+<br />
 
 After the HeadHunter server binary is moved to path, and the agent source is moved into the HeadHunter program folder, you should be able to see the HeadHunter help options:
 
@@ -68,7 +68,7 @@ Payload Generation Options
 -l, --localhost <address>                              Hunter agent callback address
 ```
 
-</br>
+<br />
 
 Let’s generate a Linux agent and initiate a callback locally on our Kali Linux machine. First let’s start up our HeadHunter listener on the loopback address: 127.0.0.1 and on port 443.
 
@@ -80,7 +80,7 @@ headhunter -l 127.0.0.1 443
 
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/5693faff-8a84-4611-8e78-36454840338e)
 
-</br>
+<br />
 
 Now let’s generate an agent with the default encryption key from inside of the HeadHunter server console using the command:
 ```
@@ -89,7 +89,7 @@ headhunter -g -l 127.0.0.1 -p 443 -w linux -f bin -o Hunter
 
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/10fcba59-c191-4daf-b45f-f4fb639932b4)
 
-</br>
+<br />
 
 Note that the HeadHunter operator can execute any shell command through the HeadHunter server console, providing flexibility for the operator.
 
