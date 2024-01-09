@@ -10,8 +10,13 @@ CPTC regional champion\
 # Posts
 ---
 
+## [Active HTB Writeup](https://logan-goins.com/2024/01/09/Active.html)
+January 9th 2024
+
+---
+
 ## [Diving into HeadHunter, an Adversary Emulation Framework Written in C](https://logan-goins.com/2024/01/04/HeadHunter.html)
-January 4st 2024
+January 4th 2024
 
 ---
 
