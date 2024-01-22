@@ -4,7 +4,7 @@
 Offensive security specialist\
 OSCP | CySA+ | Security+  
 Cybersecurity major\
-CPTC regional champion\
+CPTC global finalist\
 [Creator of HeadHunter C2 Framework](https://github.com/shellph1sh/HeadHunter)
 
 # Posts
