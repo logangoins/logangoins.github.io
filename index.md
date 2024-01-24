@@ -15,7 +15,7 @@ January 9th 2024
 
 ---
 
-## [Diving into HeadHunter, an Adversary Emulation Framework Written in C](https://logan-goins.com/2024/01/04/HeadHunter.html)
+## [Diving into HeadHunter, a C2 Framework Written in C](https://logan-goins.com/2024/01/04/HeadHunter.html)
 January 4th 2024
 
 ---
