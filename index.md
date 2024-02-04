@@ -10,6 +10,11 @@ CPTC global finalist\
 # Posts
 ---
 
+## [Evading AV with Cobalt strike: The Eternal Game of Cat & Mouse](https://logan-goins.com/2024/02/03/CS.html)
+February 3rd 2024
+
+---
+
 ## [Active HTB Writeup](https://logan-goins.com/2024/01/09/Active.html)
 January 9th 2024
 
