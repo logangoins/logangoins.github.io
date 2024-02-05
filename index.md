@@ -1,10 +1,10 @@
 
 <img width="183" alt="icon" src="https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/c0c4596e-4e37-4ecf-9524-a901917dad9b">
 
-Offensive security specialist\
-OSCP | CySA+ | Security+  
-Cybersecurity major\
-CPTC global finalist\
+Offensive Security Specialist\
+Incoming IBM X-Force Red Intern\
+OSCP | CySA+ | Security+\
+CPTC Regional Champion & Global Finalist\
 [Creator of HeadHunter C2 Framework](https://github.com/shellph1sh/HeadHunter)
 
 # Posts
