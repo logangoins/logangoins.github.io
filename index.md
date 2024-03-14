@@ -5,7 +5,7 @@ Offensive Security Specialist\
 Incoming IBM X-Force Red Intern\
 OSCP | CySA+ | Security+\
 CPTC Regional Champion & Global Finalist\
-[Creator of HeadHunter C2 Framework](https://github.com/shellph1sh/HeadHunter)
+[Github](https://github.com/shellph1sh/)
 
 # Posts
 ---
