@@ -15,7 +15,7 @@ March 17th 2024
 
 ---
 
-## [Evading AV with Cobalt strike: The Eternal Game of Cat & Mouse](https://logan-goins.com/2024/02/03/CS.html)
+## [Evading AV/EDR with Cobalt strike: The Eternal Game of Cat & Mouse](https://logan-goins.com/2024/02/03/CS.html)
 February 3rd 2024
 
 ---
