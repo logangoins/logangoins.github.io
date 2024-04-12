@@ -2,7 +2,7 @@
 <img width="183" alt="icon" src="https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/c0c4596e-4e37-4ecf-9524-a901917dad9b">
 
 Incoming Offensive Security Intern @ IBM X-Force Red\
-OSCP | CySA+ | Security+\
+OSCP | CRTO | CySA+ | Security+\
 CPTC Regional Champion & Global Finalist\
 [Github](https://github.com/shellph1sh/)
 
