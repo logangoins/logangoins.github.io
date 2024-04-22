@@ -1,7 +1,7 @@
 
 <img width="183" alt="icon" src="assets/profile.png">
 
-Incoming Offensive Security Intern @ IBM X-Force Red\
+Incoming Penetration Testing Intern @ IBM X-Force Red\
 OSCP | CRTO | CySA+ | Security+\
 CPTC Regional Champion & Global Finalist\
 [Github](https://github.com/shellph1sh/)
