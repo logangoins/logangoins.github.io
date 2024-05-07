@@ -9,6 +9,11 @@ CPTC Regional Champion & Global Finalist\
 # Posts
 ---
 
+## [Active Directory Certificate Services (AD CS): A Beautifully Vulnerable and Mis-configurable Mess](https://logan-goins.com/2024/05/04/ADCS.html)
+May 4th 2024
+
+---
+
 ## [Manager HTB Writeup](https://logan-goins.com/2024/03/17/Manager.html)
 March 17th 2024
 
