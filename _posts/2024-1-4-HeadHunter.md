@@ -11,8 +11,6 @@ tags: [MalDev, Windows, Linux, Pentesting]
   <img src="https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/38a0993b-569d-4a87-9742-675d2759407f">
 </p>
 
-
-### What is a Command and Control Framework?
 A command and control (C2) framework is a collection of tools that assist in an offensive security assessment, helping a Red Team or Penetration-testing team stay organized and concentrate all their access to the clients’ network. Usually used to simulate the tactics of an adversary which holds a foothold, or initial access on the clients’ network.
 
 ### A Bit of Background On the Project
