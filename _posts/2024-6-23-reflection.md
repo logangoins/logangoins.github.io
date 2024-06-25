@@ -9,7 +9,7 @@ tags: [Pentesting, Active Directory, Vulnlab]
 
 # Introduction
 
-Reflection is a medium difficulty Active Directory chain on the Vulnlab's platform, consisting of 3 machines: DC01, MS01, and WS01. This chain consists of a variety of realistic internal network penetration testing attack vectors and was incredibly enjoyable. The types of attack vectors required for successful exploitation include anonymous SMB bind abuse,MSSQL abuse, NTLM relay attacks, Windows Credential Vault harvesting, Resource-Based Constrained Delegation (RBCD), and finally credential reuse. While none of these attack vectors are particularly complex, the realism experienced when chaining them together in a believable and logical way was insanely rewarding.
+Reflection is a medium difficulty Active Directory chain on the Vulnlab's platform, consisting of 3 machines: DC01, MS01, and WS01. This chain consists of a variety of realistic internal network penetration testing attack vectors and was incredibly enjoyable. The types of attack vectors required for successful exploitation include anonymous SMB bind abuse, MSSQL abuse, NTLM relay attacks, Windows Credential Vault harvesting, Resource-Based Constrained Delegation (RBCD), and finally credential reuse. While none of these attack vectors are particularly complex, the realism experienced when chaining them together in a believable and logical way was insanely rewarding.
 
 # Enumeration
 
