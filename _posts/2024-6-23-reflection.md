@@ -280,7 +280,7 @@ getST.py -spn 'cifs/ws01.reflection.vl' -impersonate Administrator -dc-ip '10.10
 
 <br />
 
-Now once we use this ticket to authenticate with Netexec.
+Now we use this ticket to authenticate with Netexec.
 
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/328f6792-a16e-477d-be1d-133ff0684a88)
 
