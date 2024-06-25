@@ -54,7 +54,7 @@ cd HeadHunter/
 make && sudo make install
 ```
 
-<br />
+
 
 After the HeadHunter server binary is moved to path, and the agent source is moved into the HeadHunter program folder, you should be able to see the HeadHunter help options:
 
@@ -77,7 +77,7 @@ Payload Generation Options
 -l, --localhost <address>                              Hunter agent callback address
 ```
 
-<br />
+
 
 Let’s see HeadHunter in action! First start up our HeadHunter listener on the loopback address: 127.0.0.1 and on port 443.
 
@@ -89,7 +89,7 @@ headhunter -l 127.0.0.1 443
 
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/5693faff-8a84-4611-8e78-36454840338e)
 
-<br />
+
 
 Now let’s generate an agent with the default encryption key from inside of the HeadHunter server console using the command:
 ```
@@ -98,11 +98,11 @@ headhunter -g -l 127.0.0.1 -p 443 -w linux -f bin -o Hunter
 
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/10fcba59-c191-4daf-b45f-f4fb639932b4)
 
-<br />
+
 
 Note that the HeadHunter operator can execute any shell command through the HeadHunter server console, providing flexibility for the operator.
 
-<br />
+
 
 Ok, now execute the compiled agent in another window, and if all goes well, we should receive a callback notifier in our C2 server console output.
 
@@ -113,26 +113,26 @@ shellph1sh@kali:~/HeadHunter$ ./Hunter&
 shellph1sh@kali:~/HeadHunter$ 
 ```
 
-<br />
+
 
 And yes! HeadHunter notes that we’ve received a beacon connection from our compiled agent!
 
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/0cd4463b-9e10-49c7-b710-2cdc99fbbbee)
 
 
-<br />
+
 
 We can now enter the “show sessions” command, or “show” for short, to see active agent sessions, as well as how long it has been since they’ve checked in to the HeadHunter server.
 
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/de5460bb-36b5-43ed-a384-5659bb0251d5)
 
-<br />
+
 
 Utilize the “use” command to interact with an agent, passing the ID from the “show” command as a parameter. Note that we can now queue the agent with tasks to execute and receive output back. For example, we can execute system commands with the “shell” command, using the command we want to execute as a parameter:
 
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/561a5cf8-b731-4d8d-aadf-b69240aebe64)
 
-<br />
+
 
 That's all for the installation and simple demonstration.
 
