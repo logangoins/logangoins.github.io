@@ -272,11 +272,15 @@ rbcd.py -delegate-from 'MS01$' -delegate-to 'WS01$' -dc-ip '10.10.147.85' -actio
 
 Next we have to request a service ticket while impersonating Administrator with `getST.py`
 
+```
+getST.py -spn 'cifs/ws01.reflection.vl' -impersonate Administrator -dc-ip '10.10.147.85' -hashes :<MS01 NT hash> 'reflection.vl/MS01$'
+```
+
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/20d42db1-fe82-4fcc-bbcb-a717b1c1f84f)
 
 <br />
 
-Now once we use this ticket to authenticate with Netexec we find that we hold Administrator permissions over WS01
+Now once we use this ticket to authenticate with Netexec.
 
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/328f6792-a16e-477d-be1d-133ff0684a88)
 
@@ -294,7 +298,7 @@ When quickly dumping LSA secrets from WS01, we find a new users credentials stor
 
 This user didn't have any special domain privileges or anything leading to full domain compromise unfortunately, so I kept looking into credential harvesting on WS01 for a long time yielding nothing. After a while I started looking at general domain information again to try and see anything I might have missed before. That's when I noticed the domain admin user, `dom_rgarner` again. For a while I wasn't sure exactly what this naming convention meant, then I started looking at it in the context of the just compromised `Rhys.Garner` user. 
 
-I realized the `dom` prefix was short for domain, indicating the span of user privilege, and `rgarner` being a `[firstletter][lastname]` format for the `Rhys.Garner` user. Just out of desperation I tested the underprivileged account privileges on Rhys's Administrator account and they worked! Rhys had reused their credentials.
+I realized the `dom` prefix was short for domain, indicating the span of user privilege, and `rgarner` being a `[firstletter][lastname]` format for the `Rhys.Garner` user. Just out of desperation I tested the underprivileged account credentials on Rhys's Administrator account and they worked! Rhys had reused their credentials.
 
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/968dec1d-a160-4bfe-9e8a-563a5bd0ae35)
 
