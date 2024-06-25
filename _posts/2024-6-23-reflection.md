@@ -154,19 +154,13 @@ After a generic nmap scan of each device, I began enumerating each devices SMB s
 
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/d0286b3e-8cf2-40cf-8971-b0b4a9a3f10e)
 
-<br />
-
 In the staging share I then found database credentials, likely for the MSSQL service on MS01.
 
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/ab57bec2-7ce9-43ca-90b8-6918101695ed)
 
-<br />
-
 Next I tested the credentials and authenticated to MS01's MSSQL service.
 
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/eb3ed030-b94f-4481-94f9-617b242f1d51)
-
-<br />
 
 ## MSSQL And The Power Of SMB Signing
 
@@ -184,13 +178,9 @@ Then I sent the authentication request
 
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/92000f6d-8549-4481-a1d3-07b5b9f4240f)
 
-<br />
-
 Looking back at the relay server, we've received authentication and successfully relayed those credentials to the DC
 
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/36e9f5a3-a912-49fb-bed9-e1c41e96687b)
-
-<br />
 
 Now we can use netcat to interact with the SMB service on the DC. There appears to be a production share, with another DB configuration file inside.
 
@@ -198,21 +188,15 @@ Now we can use netcat to interact with the SMB service on the DC. There appears 
 
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/353764e1-556d-4a17-b9bd-3e91d087200b)
 
-<br />
-
 We once again find credentials for the MSSQL service, this time on the DC
 
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/8e4aeae8-75d1-45a0-a80b-2a4cd03d0782)
-
-<br />
 
 After we ensure we can successfully authenticate, looking around yields us some users, and as this is a production database its assumed these users are active domain users
 
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/aca96aba-8422-40de-853d-88b8dcba02c2)
 
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/9be55ac2-90a5-44dd-8023-71290fcfbd72)
-
-<br />
 
 ## Credentialed Domain Enumeration
 
@@ -226,8 +210,6 @@ One of the major things that I note is that our current user `abbie.smith` has g
 
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/c6760547-409d-4377-9210-f0524cbe324d)
 
-<br />
-
 ## MS01 Initial Access
 
 The very first thing which comes to mind is modifying the msDS-AllowedToActOnBehalfOfOtherIdentity to takeover the device, otherwise known as Resource-Based Constrained Delegation (RBCD), but unfortunately RBCD requires an SPN to carry out the full attack, usually a computer account, which I don't have access to. 
@@ -236,13 +218,9 @@ I decided to make a bold assumption and guess that the Local Administrator Passw
 
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/a7e3fffb-4bac-4121-a6b5-62e7b6a374ec)
 
-<br />
-
 When checking our local administrator credentials against MS01 with wmiexec we successfully authenticate
 
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/f758c89b-732d-4467-be48-a3084ac093bc)
-
-<br />
 
 ## MS01 Post Exploitation
 
@@ -250,13 +228,9 @@ I knew that I had to use some aspect of MS01 to pivot to the other machines in t
 
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/baad0259-3ae6-43c4-a909-d7f447b1f6e1)
 
-<br />
-
 Using these credentials with bloodhound conveniently shows that Georgia.Price has GenericAll over the second device in the chain, WS01.
 
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/e7be3ffe-88f6-4c1f-8db0-ff0cc650e55e)
-
-<br />
 
 ## WS01 Initial Access
 
@@ -268,8 +242,6 @@ rbcd.py -delegate-from 'MS01$' -delegate-to 'WS01$' -dc-ip '10.10.147.85' -actio
 ```
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/d6554569-c0c9-40b5-af0b-6299389bac89)
 
-<br />
-
 Next we have to request a service ticket while impersonating Administrator with `getST.py`
 
 ```
@@ -278,21 +250,15 @@ getST.py -spn 'cifs/ws01.reflection.vl' -impersonate Administrator -dc-ip '10.10
 
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/20d42db1-fe82-4fcc-bbcb-a717b1c1f84f)
 
-<br />
-
 Now we use this ticket to authenticate with Netexec.
 
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/328f6792-a16e-477d-be1d-133ff0684a88)
-
-<br />
 
 ## WS01 Post Exploitation
 
 When quickly dumping LSA secrets from WS01, we find a new users credentials stored: `Rhys.Garner`
 
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/ba87ea23-35e6-4ea1-9a37-8831a51ec834)
-
-<br />
 
 ## Getting Domain Admin
 
@@ -301,5 +267,3 @@ This user didn't have any special domain privileges or anything leading to full 
 I realized the `dom` prefix was short for domain, indicating the span of user privilege, and `rgarner` being a `[firstletter][lastname]` format for the `Rhys.Garner` user. Just out of desperation I tested the underprivileged account credentials on Rhys's Administrator account and they worked! Rhys had reused their credentials.
 
 ![image](https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/968dec1d-a160-4bfe-9e8a-563a5bd0ae35)
-
-<br />
