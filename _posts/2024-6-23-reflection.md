@@ -55,10 +55,10 @@ Host script results:
 |   3:1:1: 
 |_    Message signing enabled but not required
 ```
+## MS01
 
 The nmap scan of MS01 is also pretty standard, mainly telling us MSSQL is running on port `1433` just like the DC, and RDP on `3389` and WinRM on `5985` are both available for potentially remote control of the device if we gather user credentials. 
 
-## MS01
 ```
 PORT     STATE SERVICE       VERSION
 135/tcp  open  msrpc         Microsoft Windows RPC
@@ -115,9 +115,10 @@ Host script results:
 |_clock-skew: mean: 1s, deviation: 0s, median: 1s
 ```
 
+## WS01
+
 Pretty much the same thing with WS01. The nmap scan looks pretty standard with RDP enabled being the only thing that stands out for the same reason as MS01. 
 
-## WS01
 ```
 PORT     STATE SERVICE       VERSION
 135/tcp  open  msrpc         Microsoft Windows RPC
