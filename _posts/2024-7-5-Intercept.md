@@ -234,8 +234,7 @@ Because of the DACL relationship, we can add Simon to the `ca-managers` group wi
 net rpc group addmem "ca-managers" "Simon.Bowen" -U "INTERCEPT"/"Simon.Bowen"%"b0OI_fHO859+Aw" -S "10.10.239.5"
 ```
 
-Now that Simon is in the `ca-managers` group, all we'll need to do is exploit ESC7, which is also outlined on another one of my blog posts here: https://logan-goins.com/2024-05-04-ADCS/
-
+Now that Simon is in the `ca-managers` group, all we'll need to do is exploit ESC7, which is also outlined on another one of my blog posts [here](https://logan-goins.com/2024-05-04-ADCS/#exploitation-of-esc7).
 As mentioned in my previous blog post, because we manage the CA, we can add ourselves as an officer, which will allow us to approve our own certificate requests, including certificate requests that allow us to impersonate the DA.
 
 ```
