@@ -2,7 +2,7 @@
 layout: post
 title: NTLM Relaying to LDAP - The Hail Mary of Network Compromise
 thumbnail-img: https://github.com/user-attachments/assets/adeb37c9-ceb6-44be-96df-60c15de04e48
-share-img: https://github.com/user-attachments/assets/688c5cf9-7bcb-46c0-99f2-5ecd196743fc
+share-img: https://github.com/user-attachments/assets/ecbc3e6b-9594-48ba-8500-380a4bf7a816
 tags: [Pentesting, Windows, Active Directory]
 ---
 An NTLM relay attack is an impersonation attack usually involving some form of authentication coercion, in which an attacker elicits a host to authenticate to the attacker controlled machine, then relays the authentication to a target device, resource, or service, effectively impersonating the host. This type of attack can be absolutely devastating to an Active Directory environment, especially if the attacker is able to coerce authentication from an unauthenticated context then relay to a service for initial access into the domain.
