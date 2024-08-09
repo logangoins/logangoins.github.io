@@ -39,11 +39,13 @@ Although there exists a large number of requirements for an attacker to exploit 
 
 I like to think of the different generic catagories of the attack chain to be:
 
-1. Coercion
+1. Coercion:
    This is when an attacker is able to force an authentication attempt to their host machine, this authentication attempt can then be forwarded as apart of the attack. This can be done in quite a few ways, which we'll get into.
-2. Transport
+
+2. Transport:
    The transport category includes an attackers potential ability to modify the NTLM authentication request mid-relay as apart of their attack.
-3. Post-Ex
+
+3. Post-Ex:
    Ok, we've successfully impersonated a computer account via an LDAP relay, what are the steps we can take to ensure account takeover? This section covers how an attacker would be able to leverage the LDAP write primitive effectively.
 
 ## Coercion: WebClient - Abusing, Once Again, a 30 Year Old Protocol
@@ -52,12 +54,11 @@ I like to think of the different generic catagories of the attack chain to be:
 
 A key part of the coercion phase is forcing usable authentication to us which can actually be useful during the LDAP relay attack. This can be difficult due to some inter-protocol inoperability between signed SMB and LDAP. Generic coercion methods for coercing SMB authentication will not work (outside of some edge cases we'll get into during the next section), so we'll need to utilize something called WebClient.
 
-The WebClient service is used to interact with WebDav, which is a 30 year old service. The WebClient service is installed by default Windows 10 workstations. When the WebClient service is started, it allows us to coerce usable HTTP authentication housing the NTLM authentication header, which in tern allows us to preform a clean relay to LDAP without having to worry about the inter-protocol inoperability of SMB.
+The WebClient service is used to interact with WebDav, which is a 30 year old service. The WebClient service is installed by default on Windows 10 workstations. When the WebClient service is started, it allows us to coerce usable HTTP authentication housing the NTLM authentication header, which in turn allows us to preform a clean relay to LDAP without having to worry about the inter-protocol inoperability of SMB.
 
 A difficult part of preforming this attack is having a target with WebClient enabled. There's a few ways the WebClient service is started automatically, all involving user input or interaction unfortunately.
 
 These cases are:
-
 1. Mapping a WebDav server
 2. Typing anything into the explorer address bar that isn't a local file or directory
 3. Browsing to a share that has a file with a .[searchConnecter-ms](https://docs.microsoft.com/en-us/windows/win32/search/search-sconn-desc-schema-entry) extension located inside.
@@ -224,7 +225,7 @@ We can set up the relay through `ntlmrelayx.py`, with the `--delegate-access` fl
 ```
 ntlmrelayx.py -t ldaps://192.168.1.2 -smb2support --delegate-access --no-dump --no-da --no-acl --no-validate-privs
 ```
-![image](https://github.com/user-attachments/assets/834d40af-feac-4f3d-8234-6d817f49259d)
+![image](https://github.com/user-attachments/assets/f635ed1b-f045-40b1-ae19-48fa3a4cfa77)
 
 You can see that it successfully added a new computer account, and enabled delegation from the newly added computer account to `MS$`. 
 
@@ -329,4 +330,8 @@ While this vulnerability isn't absolutely necessary to exploit an LDAP relay bec
 Turn off all multicast name resolution through the Group Policy Editor by navigating to `Computer Configuration\Administrative Templates\Network\DNS Client` and select "Turn off multicast name resolution", and finally select "Enabled".
 
 ![image](https://github.com/user-attachments/assets/ad13aaf5-493e-4385-8833-558ec8e14b84)
+
+# Conclusion
+
+While NTLM to LDAP relay attacks require a large amount of different factors to all line up together, the impact to an organizations Active Directory environment can be absolutely devastating. Potential arbitrary device compromise as SYSTEM, to potentially full domain compromise, with trade-craft every step of the way. From abusing WebClient in the coercion stage to get suitable authentication for relay to LDAP, to numerous post-exploitation measures when an attacker has actually impersonated the desired machine account. The only way to really stay on top of these vulnerabilities to conduct continuous audits, penetration testing, and ensure good organizational security posture through an active security mindset. 
 
