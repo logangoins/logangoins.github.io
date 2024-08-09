@@ -51,7 +51,7 @@ I like to think of the different generic catagories of the attack chain to be:
 
 ## Coercion
 
-### Explanation - WebClient - Abusing, Once Again, a 30 Year Old Protocol
+### Explanation - WebClient: Abusing, Once Again, a 30 Year Old Protocol
 
 A key part of the coercion phase is forcing usable authentication to us which can actually be useful during the LDAP relay attack. This can be difficult due to some inter-protocol inoperability between signed SMB and LDAP. Generic coercion methods for coercing SMB authentication will not work (outside of some edge cases we'll get into during the next section), so we'll need to utilize something called WebClient.
 
