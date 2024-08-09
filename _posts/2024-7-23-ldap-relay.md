@@ -312,7 +312,7 @@ Enabling LDAP signing and channel binding on the Domain Controller insures that 
 
 Enabling just LDAP signing won't be enough to prevent an LDAP relay, because an attacker could still relay to LDAPS. To fully prevent an NTLM to LDAP relay attack on both plaintext LDAP and LDAPS you need to enforce LDAP signing as well as enable channel binding. Note: Enabling LDAPS channel binding will fully prevent NTLM authentication to LDAPS.
 
-To enforce LDAP signing on a Domain Controller open `regedit` and navigate to `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NTDS\Parameters` then create a new DWORD called `LDAPServerIntegrity` and set the value to `2`, which means "Require signing
+To enforce LDAP signing on a Domain Controller open `regedit` and navigate to `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NTDS\Parameters` then create a new DWORD called `LDAPServerIntegrity` and set the value to `2`, which means "Require signing".
 
 ![image](https://github.com/user-attachments/assets/cfe1e860-0b07-4a0e-af28-57c78af8281f)
 
