@@ -14,17 +14,17 @@ While this sounds incredibly impactful, there's a whole host of requirements tha
 This writeup is mainly to document my research into LDAP relay attacks and provide a source of knowledge for others to learn from.
 
 - [Striking the Heart of Active Directory](#striking-the-heart-of-active-directory)
-    - [Coercion: WebClient - Abusing, Once Again, a 30 Year Old Protocol](#coercion-webclient---abusing-once-again-a-30-year-old-protocol)
-        - [Explanation](#explanation)
-        - [Exploitation](#exploitation)
+    - [Coercion](#coercion)
+        - [Explanation - WebClient - Abusing, Once Again, a 30 Year Old Protocol](#explanation---webclient---abusing-once-again-a-30-year-old-protocol)
+        - [Exploitation - The Curious Case of DNS Resolution](#exploitation---the-curious-case-of-dns-resolution)
             - [Coercion via dnstool.py](#coercion-via-dnstoolpy)
             - [Coercion via LLMNR](#coercion-via-llmnr)
-    - [Transport: Edge Cases Of Significant Impact](#transport-edge-cases-of-significant-impact)
-        - [Explanation](#explanation)
+    - [Transport](#transport)
+        - [Explanation - Edge Cases Of Significant Impact](#explanation---edge-cases-of-significant-impact)
         - [Exploitation - Base Relay and Dropping the MIC](#exploitation---base-relay-and-dropping-the-mic)
-    - [Post-Exploitation: The Final Nail In The Coffin](#post-exploitation-the-final-nail-in-the-coffin)
-        - [Explanation](#explanation)
-        - [Exploitation](#exploitation)
+    - [Post-Exploitation](#post-exploitation)
+        - [Explanation - The Final Nail In The Coffin](#explanation---the-final-nail-in-the-coffin)
+        - [Exploitation - Account Takeover Through LDAP Write Primitive](#exploitation---account-takeover-through-ldap-write-primitive)
             - [Relaying to Resource Based Constrained Delegation](#relaying-to-resource-based-constrained-delegation)
             - [Relaying to Shadow Credentials](#relaying-to-shadow-credentials)
             - [Relaying Interactively Into an LDAP Shell](#relaying-interactively-into-an-ldap-shell)
@@ -32,6 +32,7 @@ This writeup is mainly to document my research into LDAP relay attacks and provi
     - [LDAP Signing and Channel Binding](#ldap-signing-and-channel-binding)
     - [Disabling NTLMv1](#disabling-ntlmv1)
     - [Disabling Multicast Resolution](#disabling-multicast-resolution)
+- [Conclusion](#conclusion)
 
 # Striking the Heart of Active Directory
 
@@ -48,9 +49,9 @@ I like to think of the different generic catagories of the attack chain to be:
 3. Post-Ex:
    Ok, we've successfully impersonated a computer account via an LDAP relay, what are the steps we can take to ensure account takeover? This section covers how an attacker would be able to leverage the LDAP write primitive effectively.
 
-## Coercion: WebClient - Abusing, Once Again, a 30 Year Old Protocol
+## Coercion
 
-### Explanation
+### Explanation - WebClient - Abusing, Once Again, a 30 Year Old Protocol
 
 A key part of the coercion phase is forcing usable authentication to us which can actually be useful during the LDAP relay attack. This can be difficult due to some inter-protocol inoperability between signed SMB and LDAP. Generic coercion methods for coercing SMB authentication will not work (outside of some edge cases we'll get into during the next section), so we'll need to utilize something called WebClient.
 
@@ -82,7 +83,7 @@ The format of this file looks something like this:
 
 The first case is relatively unlikely to happen in the day-to-day operations of a generic user at their workstation, and the second is sort of likely to happen depending on how resources in the organization are accessed. If the user is accessing a network share, WebClient is activated, meaning an attacker can coerce HTTP authentication from the device to be used as apart of an LDAP relay. Finally the third is the most interesting, since it involves taking the attack into your own hands and trying to remotely start the WebClient service.
 
-### Exploitation
+### Exploitation - The Curious Case of DNS Resolution
 
 We can use the NetExec module `webdav` to enumerate with domain user context if the WebClient service is enabled.
 
@@ -148,11 +149,11 @@ And as you can see we've received valid HTTP NTLM authentication!
 
 In the next section, we'll go over the method for actual relay of authentication, and the ability for potential modification of the NTLM request to assist in network compromise as part of an LDAP relay attack.
 
-## Transport: Edge Cases Of Significant Impact
+## Transport
 
 While these modification NTLM attacks are significantly less likely to be exploited for a number of reasons, if successfully preformed, the results could be devastating. There's a number of transport-based NTLM modification attacks, two of which deal with something called a MIC, or Message Integrity Check. It's a field located in a signed NTLM authentication request, preventing tampering through Machine In The Middle (MITM) and relay attacks.
 
-### Explanation
+### Explanation - Edge Cases Of Significant Impact
 
 Quite a few years ago, Crowdstrike found a collection of NTLM transport vulnerabilities that still threaten Active Directory networks today. Their security advisory on them can be found [here](https://www.crowdstrike.com/blog/active-directory-ntlm-attack-security-advisory/).
 
@@ -197,11 +198,11 @@ ntlmrelayx.py -t ldaps://192.168.1.2 --remove-mic -smb2support --no-dump --no-da
 But if we were to coerce HTTP authentication with WebClient, without NTLMv1 enabled at all, gives us success. HTTP authentication is indicated by the HTTP(80) identifier:
 ![image](https://github.com/user-attachments/assets/688c5cf9-7bcb-46c0-99f2-5ecd196743fc)
 
-## Post-Exploitation: The Final Nail In The Coffin
+## Post-Exploitation
 
 Successfully authenticating as the `MS$` machine account means we're one more step to full account takeover, the only last step would be using some post exploitation methods to confirm principal impersonation. By default, there's a collection of LDAP attributes an account can write on itself, which allows us to impersonate the account in authentication.
 
-### Explanation
+### Explanation - The Final Nail In The Coffin
 
 The first major account takeover technique through LDAP attribute wring is RBCD, or Resource Based Constrained Delegation. This attack type includes writing to the `msDS-AllowedToActOnBehalfOfOtherIdentity` attribute, allowing another SPN (Service Principal Name), to delegate to the target computer account as any user. This is why for the execution of an RBCD attack, we need control of any other SPN. The easiest way to get a free SPN, is by adding it yourself. By default all domain users can add Computer Accounts to the domain which are technically SPN's by default. This attack type is usually the most popular since it doesn't require an ADCS (Active Directory Certificate Services) CA (Certification Authority) to be configured on the domain, and the next two do.
 
@@ -211,7 +212,7 @@ The last technique is a relatively new technique at this time of writing. It's E
 
 I won't be going over in-depth practical exploitation of ESC14 because functionality for writing `altSecurityIdentities` isn't quite implemented in `ntlmrelayx.py`
 
-### Exploitation
+### Exploitation - Account Takeover Through LDAP Write Primitive
 
 `ntlmrelayx.py` has a few really useful flags for writing some of these LDAP attributes in an automated fashion. These include the `--delegate-access` for RBCD and `--shadow-credentials` flags. This makes it incredibly seamless and streamlined to preform these attacks even with all the moving parts.
 
@@ -267,7 +268,7 @@ KRB5CCNAME=RFN6Gg0U.ccache python3 PKINITtools/getnthash.py -key 4fdb7a60ed6e170
 ```
 ![image](https://github.com/user-attachments/assets/bd48a48f-565c-446f-9be0-e9d33957786f)
 
-Since a computer account is automatically registered on creation as a `servicePrincipalName` (SPN), we could utilize this hash to create a silver ticket and impersonate 
+Since a computer account is automatically registered on creation as a `servicePrincipalName` (SPN), we could utilize this hash to create a silver ticket and impersonate the Domain Admin (DA) on the target account. 
 
 Or use it to impersonate a Domain Admin and gain command execution onto `MS$`
 ```
@@ -283,7 +284,7 @@ KRB5CCNAME=admin.ccache netexec smb 192.168.1.3 --use-kcache --sam
 
 #### Relaying Interactively Into an LDAP Shell
 
-Instead of using a pre-determined flag to automatically preform some LDAP action on behalf of the relayed account you could exercise more fine grained control over the actions you can with an interactive LDAP shell through `ntlmrelayx.py` with the `-i` flag. This also indicates that you can take multiple actions through the impersonated account instead of just being restricted to direct account takeover.
+Instead of using a pre-determined flag to automatically preform some LDAP action on behalf of the relayed account you could exercise more fine grained control over your actions with an interactive LDAP shell through `ntlmrelayx.py` with the `-i` flag. This also indicates that you can take multiple actions through the impersonated account instead of just being restricted to direct account takeover.
 
 For example we can spin up our previous relay but using `-i`:
 ```
@@ -303,11 +304,11 @@ We can type help into the shell to see the various commands we can utilize:
 
 # Remediation's - Stopping an Attackers Operation
 
-Because an attack like this is so impactful, some of these simple Active Directory configurations could be the difference between an attacker gaining a full domain compromise and stealing large amounts of proprietary information or conducting extortion activities and being quickly pushed out of the network by an incident response team after swift detection. It's extremely important to conduct continuous audits to ensure the impact of an attacker gaining initial access into a corporate network is significantly lessened.  
+Because an attack like this is so impactful, some of these simple Active Directory configurations could be the difference between an attacker gaining a full domain compromise and conducting extortion activities or being quickly pushed out of the network by an incident response team after swift detection. It's extremely important to conduct continuous audits to ensure the impact of an attacker gaining initial access into a corporate network is significantly lessened.  
 
 ## LDAP Signing and Channel Binding
 
-Enabling LDAP signing and channel binding on the Domain Controller insures that every message received is verified as to be from the original sender, completely preventing an LDAP relay attack. This single remediation is the best one, putting a stop to anyone trying to pull off this attack. Domain Controllers which don't have the KB4520412 update included on installation are in a default state potentially vulnerable to an NTLM relay to LDAP. Versions of Windows server before 2019 are automatically vulnerable until LDAP signing is enforced.
+Enabling LDAP signing and channel binding on the Domain Controller insures that every message received is verified to be from the original sender, completely preventing an LDAP relay attack. This single remediation is the best one, putting a stop to anyone trying to pull off this attack. Domain Controllers which don't have the KB4520412 update included on installation are in a default state potentially vulnerable to an NTLM relay to LDAP. Versions of Windows server before 2019 are automatically vulnerable until LDAP signing is enforced.
 
 Enabling just LDAP signing won't be enough to prevent an LDAP relay, because an attacker could still relay to LDAPS. To fully prevent an NTLM to LDAP relay attack on both plaintext LDAP and LDAPS you need to enforce LDAP signing as well as enable channel binding. Note: Enabling LDAPS channel binding will fully prevent NTLM authentication to LDAPS.
 
@@ -321,7 +322,7 @@ You can enable channel binding on a Domain Controller by opening `regedit` and n
 
 ## Disabling NTLMv1
 
-Like mentioned previously, NTLMv1 can be absolutely detrimental for an Active Directory domain. Allowing an attacker to achieve full domain compromise within a few hours if they're able to coerce authentication from a Domain Controller. Disabling NTLMv1 is absolutely critical in general, but for the purposes of this blog post I'll cover it simply because NTLMv1 is just another way to drop the MIC as apart of the relay attack. 
+Like mentioned previously, NTLMv1 can be absolutely detrimental for an Active Directory domain, allowing an attacker to achieve full domain compromise within a few hours if they're able to coerce authentication from a Domain Controller. Disabling NTLMv1 is absolutely critical in general, but for the purposes of this blog post I'll cover it simply because NTLMv1 is just another way to drop the MIC as apart of the relay attack. 
 
 You can disable NTLMv1 authentication across the domain with the Group Policy Editor. Navigate to `Computer Configuration\Windows Settings\Security Settings\Local Policies\Security Options` and select `Network security: LAN Manager authentication level`. Then set the option "Send NTLMv2 response only. Refuse LM & NTLM"
 
