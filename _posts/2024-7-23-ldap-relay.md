@@ -120,6 +120,8 @@ python3 /opt/PetitPotam.py -u jdoe -p 'P@ssw0rd' -d lab.lan attacker@80/test 192
 
 And after sending it off, as you can see, we receive HTTP NTLM authentication!
 
+![image](https://github.com/user-attachments/assets/2ce06702-74c3-4b7a-b077-6805cf63ac98)
+
 #### Coercion via LLMNR
 
 Since the WebClient connection string has to be a hostname, whenever a device cannot associate the passed hostname with a valid IP address and Link Local Multicast Name Resolution (LLMNR) is enabled, we can poison the multicast request and force the target device to successfully authenticate to us with HTTP authentication, without ever having to add a DNS entry. While this is a very round about way of coercion, I'd still consider it coercion because we are still initiating that first request from the target device, even if we have to poison the IP resolution.
@@ -155,6 +157,8 @@ While these modification NTLM attacks are significantly less likely to be exploi
 Quite a few years ago, Crowdstrike found a collection of NTLM transport vulnerabilities that still threaten Active Directory networks today. Their security advisory on them can be found [here](https://www.crowdstrike.com/blog/active-directory-ntlm-attack-security-advisory/).
 
 Windows devices vulnerable to CVE-2019-1040, allow the MIC field to simply be dropped. If an attacker is able to drop the MIC, there's nothing preventing them from relaying SMB authentication to LDAP(S), resulting in successful impersonation of the coerced target without the added annoyance of having to coerce HTTP authentication through WebClient.
+
+![gif](https://github.com/user-attachments/assets/75e877f0-dd47-49e0-ba4e-7d038134281b)
 
 There also exists a second iteration of the vulnerability, referred to as "Drop the MIC 2", CVE 2019-1166. Devices vulnerable to this kind of attack don't verify the existence of the MIC in a request that has a `msvAvFlag` field set to zero, allowing us to trick the server into believing that the request doesn't include a MIC. This attack also allows us to bypass the requirement of having to coerce HTTP authentication.
 
