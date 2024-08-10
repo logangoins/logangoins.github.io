@@ -15,7 +15,7 @@ This writeup is mainly to document my research into LDAP relay attacks and provi
 
 - [Striking the Heart of Active Directory](#striking-the-heart-of-active-directory)
     - [Coercion](#coercion)
-        - [Explanation - WebClient - Abusing, Once Again, a 30 Year Old Protocol](#explanation---webclient---abusing-once-again-a-30-year-old-protocol)
+        - [Explanation - WebClient: Abusing, Once Again, a 30 Year Old Protocol](#explanation---webclient-abusing-once-again-a-30-year-old-protocol)
         - [Exploitation - The Curious Case of DNS Resolution](#exploitation---the-curious-case-of-dns-resolution)
             - [Coercion via dnstool.py](#coercion-via-dnstoolpy)
             - [Coercion via LLMNR](#coercion-via-llmnr)
