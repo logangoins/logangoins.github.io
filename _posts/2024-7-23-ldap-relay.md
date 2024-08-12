@@ -163,7 +163,7 @@ Windows devices vulnerable to CVE-2019-1040, allow the MIC field to simply be dr
 
 There also exists a second iteration of the vulnerability, referred to as "Drop the MIC 2", CVE 2019-1166. Devices vulnerable to this kind of attack don't verify the existence of the MIC in a request that has a `msvAvFlag` field set to zero, allowing us to trick the server into believing that the request doesn't include a MIC. This attack also allows us to bypass the requirement of having to coerce HTTP authentication.
 
-The last, least interesting transport vulnerability is if the domain is sending Net-NTLMv1 authentication back to your attacker host, we can drop the MIC automatically and not require WebClient coercion. This exists as an alternative method of potentially acquiring Domain Admin through NTLMv1 instead of using a NTLMv1 downgrade attack if there's more than one DC in the environment.
+The last, least interesting transport vulnerability is if the domain is sending Net-NTLMv1 authentication back to your attacker host, we can drop the MIC automatically and not require WebClient coercion. Instead of using a NTLMv1 downgrade attack, this exists as an alternative method of potentially acquiring Domain Admin through an LDAP relay if we're able to coerce a DC and there's more than one DC in the environment.
 
 ### Exploitation - Base Relay and Dropping the MIC
 
