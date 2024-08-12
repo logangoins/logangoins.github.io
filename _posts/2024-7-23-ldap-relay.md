@@ -163,7 +163,7 @@ Windows devices vulnerable to CVE-2019-1040, allow the MIC field to simply be dr
 
 There also exists a second iteration of the vulnerability, referred to as "Drop the MIC 2", CVE 2019-1166. Devices vulnerable to this kind of attack don't verify the existence of the MIC in a request that has a `msvAvFlag` field set to zero, allowing us to trick the server into believing that the request doesn't include a MIC. This attack also allows us to bypass the requirement of having to coerce HTTP authentication.
 
-The last, least interesting transport vulnerability is if the domain is sending Net-NTLMv1 authentication back to your attacker host, we can drop the MIC automatically and not require WebClient coercion. While this is still extremely impactful, if the domain is sending Net-NTLMv1 responses there's much more to worry about than a relay attack, for example the NTLMv1 downgrade attack. This is where you can take advantage of Net-NTLMv1's cryptographic weaknesses and derive the NT hash of the machine account within a short amount of time. So if you're able to coerce authentication from a domain controller, you can eventually dump NTDS, fully compromising the domain.
+The last, least interesting transport vulnerability is if the domain is sending Net-NTLMv1 authentication back to your attacker host, we can drop the MIC automatically and not require WebClient coercion. This exists as an alternative method of potentially acquiring Domain Admin through NTLMv1 instead of using a NTLMv1 downgrade attack if there's more than one DC in the environment.
 
 ### Exploitation - Base Relay and Dropping the MIC
 
@@ -308,9 +308,9 @@ Because an attack like this is so impactful, some of these simple Active Directo
 
 ## LDAP Signing and Channel Binding
 
-Enabling LDAP signing and channel binding on the Domain Controller insures that every message received is verified to be from the original sender, completely preventing an LDAP relay attack. This single remediation is the best one, putting a stop to anyone trying to pull off this attack. Domain Controllers which don't have the KB4520412 update included on installation are in a default state potentially vulnerable to an NTLM relay to LDAP. Versions of Windows server before 2019 are automatically vulnerable until LDAP signing is enforced.
+Enabling LDAP signing and channel binding on the Domain Controller insures that every message received is verified to be from the original sender, completely preventing an LDAP relay attack. This set of remediation's is the best one, putting a stop to anyone trying to pull off this attack. Domain Controllers which don't have the KB4520412 update included on installation are in a default state potentially vulnerable to an NTLM relay to LDAP. Versions of Windows server 2019 and before are automatically vulnerable until LDAP signing is enforced and channel binding is configured.
 
-Enabling just LDAP signing won't be enough to prevent an LDAP relay, because an attacker could still relay to LDAPS. To fully prevent an NTLM to LDAP relay attack on both plaintext LDAP and LDAPS you need to enforce LDAP signing as well as enable channel binding. Note: Enabling LDAPS channel binding will fully prevent NTLM authentication to LDAPS.
+Enabling just LDAP signing won't be enough to prevent an LDAP relay, because an attacker could still relay to LDAPS. To fully prevent an NTLM to LDAP relay attack on both plaintext LDAP and LDAPS you need to enforce LDAP signing as well as enable channel binding. This is because the channel binding configuration only applies to LDAPS and LDAP signing only enforces signed requests to LDAP. Note: Enabling LDAPS channel binding will fully prevent NTLM authentication to LDAPS.
 
 To enforce LDAP signing on a Domain Controller open `regedit` and navigate to `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NTDS\Parameters` then create a new DWORD called `LDAPServerIntegrity` and set the value to `2`, which means "Require signing".
 
@@ -322,7 +322,7 @@ You can enable channel binding on a Domain Controller by opening `regedit` and n
 
 ## Disabling NTLMv1
 
-Like mentioned previously, NTLMv1 can be absolutely detrimental for an Active Directory domain, allowing an attacker to achieve full domain compromise within a few hours if they're able to coerce authentication from a Domain Controller. Disabling NTLMv1 is absolutely critical in general, but for the purposes of this blog post I'll cover it simply because NTLMv1 is just another way to drop the MIC as apart of the relay attack. 
+Like mentioned previously, NTLMv1 can be absolutely detrimental for an Active Directory domain, allowing an attacker to achieve full domain compromise if they're able to coerce authentication from a Domain Controller. Disabling NTLMv1 is absolutely critical in general, but for the purposes of this blog post I'll cover it simply because NTLMv1 is just another way to drop the MIC as apart of the relay attack. 
 
 You can disable NTLMv1 authentication across the domain with the Group Policy Editor. Navigate to `Computer Configuration\Windows Settings\Security Settings\Local Policies\Security Options` and select `Network security: LAN Manager authentication level`. Then set the option "Send NTLMv2 response only. Refuse LM & NTLM"
 
