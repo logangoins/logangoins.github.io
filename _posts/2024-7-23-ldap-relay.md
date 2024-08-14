@@ -5,9 +5,9 @@ thumbnail-img: https://github.com/user-attachments/assets/adeb37c9-ceb6-44be-96d
 share-img: https://github.com/user-attachments/assets/ecbc3e6b-9594-48ba-8500-380a4bf7a816
 tags: [Pentesting, Windows, Active Directory]
 ---
-An NTLM relay attack is an impersonation attack usually involving some form of authentication coercion, in which an attacker elicits a host to authenticate to the attacker controlled machine, then relays the authentication to a target device, resource, or service, effectively impersonating the host. This type of attack can be absolutely devastating to an Active Directory environment, especially if the attacker is able to coerce authentication from an unauthenticated context then relay to a service for initial access into the domain.
+An NTLM relay attack is an MITM attack usually involving some form of authentication coercion, in which an attacker elicits a host to authenticate to the attacker controlled machine, then relays the authentication to a target device, resource, or service, effectively impersonating the host. This type of attack can be absolutely devastating to an Active Directory environment, especially if the attacker is able to coerce authentication from an unauthenticated context then relay to a service for initial access into the domain.
 
-One of the most impactful services to relay authentication to is LDAP, or the Lightweight Directory Access Protocol, which is effectively the heart of Active Directory. This is because if we're able to use the NTLM relay to impersonate a computer account we can modify a selection of critical LDAP attributes on the account, allowing us to preform account takeover. Because we control the computer account we also have Administrator permissions on the physical device as well, allowing us to gain command execution on the device. Meaning we could theoretically take over any device in the Active Directory network as long as there's an external Domain Controller to relay authentication to.
+One of the most impactful services to relay authentication to is LDAP, or the Lightweight Directory Access Protocol, which is effectively the heart of Active Directory. This is because if we're able to use the NTLM relay to impersonate a computer account we can modify a selection of critical LDAP attributes on the account, allowing us to perform account takeover. Because we control the computer account we also have Administrative or SYSTEM permissions on the physical device as well, allowing us to gain command execution on the device. Meaning we could theoretically take over any device in the Active Directory network as long as there's an external Domain Controller to relay authentication to.
 
 While this sounds incredibly impactful, there's a whole host of requirements that need to be met for an attack like this to be properly conducted, making an LDAP relay attack in my mind to be the hail mary of network compromise. This documentation will go over an explanation of the specific avenues of exploitation, practical examples, their requirements, and configuration specifics for the attacks to take place.
 
@@ -151,7 +151,7 @@ In the next section, we'll go over the method for actual relay of authentication
 
 ## Transport
 
-While these modification NTLM attacks are significantly less likely to be exploited for a number of reasons, if successfully preformed, the results could be devastating. There's a number of transport-based NTLM modification attacks, two of which deal with something called a MIC, or Message Integrity Check. It's a field located in a signed NTLM authentication request, preventing tampering through Machine In The Middle (MITM) and relay attacks.
+While these modification NTLM attacks are significantly less likely to be vulnerable, if successfully performed, the results could be devastating. There's a number of transport-based NTLM modification attacks, two of which deal with something called a MIC, or Message Integrity Check. It's a field located in a signed NTLM authentication request, preventing tampering through Machine In The Middle (MITM) and relay attacks.
 
 ### Explanation - Edge Cases Of Significant Impact
 
@@ -204,11 +204,11 @@ Successfully authenticating as the `MS$` machine account means we're one more st
 
 ### Explanation - The Final Nail In The Coffin
 
-The first major account takeover technique through LDAP attribute wring is RBCD, or Resource Based Constrained Delegation. This attack type includes writing to the `msDS-AllowedToActOnBehalfOfOtherIdentity` attribute, allowing another SPN (Service Principal Name), to delegate to the target computer account as any user. This is why for the execution of an RBCD attack, we need control of any other SPN. The easiest way to get a free SPN, is by adding it yourself. By default all domain users can add Computer Accounts to the domain which are technically SPN's by default. This attack type is usually the most popular since it doesn't require an ADCS (Active Directory Certificate Services) CA (Certification Authority) to be configured on the domain, and the next two do.
+The first major account takeover technique through LDAP attribute writing is RBCD, or Resource Based Constrained Delegation. This attack type includes writing to the `msDS-AllowedToActOnBehalfOfOtherIdentity` attribute, allowing another SPN (Service Principal Name), to delegate to the target computer account as any user. This is why for the execution of an RBCD attack, we need control of any other SPN. The easiest way to get a free SPN, is by adding it yourself. By default all domain users can add Computer Accounts to the domain which technically include SPN's by default. This attack type is usually the most popular since it doesn't require an ADCS (Active Directory Certificate Services) CA (Certification Authority) to be configured on the domain, and the next two do.
 
 Another major technique is by using something called Shadow Credentials, or Shadow Creds. If you can write to the `msDS-KeyCredentialLink` LDAP attribute, you can acquire the NT hash of the target. Although this does come with some downsides. Since the `msDS-KeyCredentialLink` attribute is sometimes used for alternative Kerberos authentication, it could already be set in an environment, potentially disrupting operations if you decide to write to it. While the same could go for the `msDS-AllowedToActOnBehalfOfOtherIdentity`, it's significantly less likely to be set. It's always a good idea to check the attributes value before writing to it.
 
-The last technique is a relatively new technique at this time of writing. It's ESC14, as apart of SpecterOps's ADCS research. ESC14 details that if write access to the `altSecurityIdentities` attribute exists on the victim, and you have enrollment access on a certificate template, you can request a certificate as the victim. This happens because the `altSecurityIdentities` controls the targets explicit certificate mapping. Certificate mapping is how the domain correlates the user of computer in the certificate with a user or computer that actually exists on the domain for authentication. If the user is explicitly mapped to a certificate template it can allow us to authenticate as that user with the requested certificate.
+The last technique is a relatively new technique at this time of writing. It's ESC14, as apart of SpecterOps's ADCS research. ESC14 details that if write access to the `altSecurityIdentities` attribute exists on the victim, and you have enrollment access on a certificate template, you can request a certificate as the victim. This happens because the `altSecurityIdentities` controls the target's explicit certificate mapping. Certificate mapping is how the domain correlates the user or computer in the certificate with a user or computer that actually exists on the domain for authentication. If the user is explicitly mapped to a certificate template it can allow us to authenticate as that user with the requested certificate.
 
 I won't be going over in-depth practical exploitation of ESC14 because functionality for writing `altSecurityIdentities` isn't quite implemented in `ntlmrelayx.py`
 
@@ -240,7 +240,7 @@ getST.py -spn 'cifs/ms.lab.lan' -impersonate Administrator -dc-ip '192.168.1.2' 
 ```
 ![image](https://github.com/user-attachments/assets/367c1ee0-adb2-4cb1-9cf2-0d146eaf04b8)
 
-Now we've successfully obtained a ticket for the Domain Admin, specifically for access to `MS$`, we can use this to obtain command execution on `MS$` or dump it's SAM (Security Account Manager) database as an example of administrative capabilities, as seen here:
+Now we've successfully obtained a ticket for the Domain Admin, specifically for access to `MS$`, we can use this to obtain command execution on `MS$` or dump its SAM (Security Account Manager) database as an example of administrative capabilities, as seen here:
 ```
 KRB5CCNAME=Administrator.ccache netexec smb 192.168.1.3 --use-kcache --sam
 ```
@@ -268,7 +268,7 @@ KRB5CCNAME=RFN6Gg0U.ccache python3 PKINITtools/getnthash.py -key 4fdb7a60ed6e170
 ```
 ![image](https://github.com/user-attachments/assets/bd48a48f-565c-446f-9be0-e9d33957786f)
 
-Since a computer account is automatically registered on creation as a `servicePrincipalName` (SPN), we could utilize this hash to create a silver ticket and impersonate the Domain Admin (DA) on the target account. 
+Since a computer account is automatically registered on creation with an `servicePrincipalName` (SPN), we could utilize this hash to create a silver ticket and impersonate the Domain Admin (DA) on the target account. 
 
 Or use it to impersonate a Domain Admin and gain command execution onto `MS$`
 ```
@@ -302,13 +302,13 @@ nc 127.0.0.1 11000
 We can type help into the shell to see the various commands we can utilize:
 ![image](https://github.com/user-attachments/assets/e97cf57a-6568-4d06-9046-68381ef32ae2)
 
-# Remediation's - Stopping an Attackers Operation
+# Remediations - Stopping an Attacker's Operation
 
 Because an attack like this is so impactful, some of these simple Active Directory configurations could be the difference between an attacker gaining a full domain compromise and conducting extortion activities or being quickly pushed out of the network by an incident response team after swift detection. It's extremely important to conduct continuous audits to ensure the impact of an attacker gaining initial access into a corporate network is significantly lessened.  
 
 ## LDAP Signing and Channel Binding
 
-Enabling LDAP signing and channel binding on the Domain Controller insures that every message received is verified to be from the original sender, completely preventing an LDAP relay attack. This set of remediation's is the best one, putting a stop to anyone trying to pull off this attack. Domain Controllers which don't have the KB4520412 update included on installation are in a default state potentially vulnerable to an NTLM relay to LDAP. Versions of Windows server 2019 and before are automatically vulnerable until LDAP signing is enforced and channel binding is configured.
+Enabling LDAP signing and channel binding on the Domain Controller insures that every message received is verified to be from the original sender, completely preventing an LDAP relay attack. This set of remediations is the best one, putting a stop to anyone trying to pull off this attack. Domain Controllers which don't have the KB4520412 update included on installation are in a default state potentially vulnerable to an NTLM relay to LDAP. Versions of Windows Server 2019 and before are automatically vulnerable until LDAP signing is enforced and channel binding is configured.
 
 Enabling just LDAP signing won't be enough to prevent an LDAP relay, because an attacker could still relay to LDAPS. To fully prevent an NTLM to LDAP relay attack on both plaintext LDAP and LDAPS you need to enforce LDAP signing as well as enable channel binding. This is because the channel binding configuration only applies to LDAPS and LDAP signing only enforces signed requests to LDAP. Note: Enabling LDAPS channel binding will fully prevent NTLM authentication to LDAPS.
 
@@ -338,5 +338,5 @@ Turn off all multicast name resolution through the Group Policy Editor by naviga
 
 # Conclusion
 
-While NTLM to LDAP relay attacks require a large amount of different factors to all line up together, the impact to an organizations Active Directory environment can be absolutely devastating. Potential arbitrary device compromise as SYSTEM, to potentially full domain compromise, with trade-craft every step of the way. From abusing WebClient in the coercion stage to get suitable authentication for relay to LDAP, to numerous post-exploitation measures when an attacker has actually impersonated the desired machine account. The only way to really stay on top of these vulnerabilities to conduct continuous audits, penetration testing, and ensure good organizational security posture through an active security mindset. 
+While NTLM to LDAP relay attacks require a large amount of different factors to all line up together, the impact to an organization's Active Directory environment can be absolutely devastating. Potential arbitrary device compromise as SYSTEM, to potentially full domain compromise, with trade-craft every step of the way. From abusing WebClient in the coercion stage to get suitable authentication for relay to LDAP, to numerous post-exploitation measures when an attacker has actually impersonated the desired machine account. The only way to really stay on top of these vulnerabilities to conduct continuous audits, penetration testing, and ensure good organizational security posture through an active security mindset. 
 
