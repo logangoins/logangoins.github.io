@@ -6,7 +6,7 @@
 # --- Required options --- #
 
 # Name of website
-title: Shellph1sh's Blog
+title: Logan's Blog
 
 # Your name to show in the footer
 author: Logan Goins
@@ -15,7 +15,7 @@ author: Logan Goins
 
 navbar-links:
   Resume: "https://logan-goins.com/assets/Resume.pdf"
-  Github: "https://github.com/shellph1sh"
+  Github: "https://github.com/logangoins"
 
 # --- Logo --- #
 
@@ -37,8 +37,8 @@ round-avatar: true
 # Uncomment the links you want to show and add your information to each one.
 social-network-links:
 #  facebook: deanattali
-  github: shellph1sh
-  twitter: shellph1sh
+  github: logangoins
+  twitter: _logangoins
 #  patreon: DeanAttali
 #  youtube: c/daattali
 #  medium: yourname
