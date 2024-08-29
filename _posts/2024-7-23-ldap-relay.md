@@ -81,7 +81,7 @@ The format of this file looks something like this:
 </searchConnectorDescription>
 ```
 
-Additionally, if an attacker does not have access to a graphical environment and has command execution as a low-privilege user, they can also copy the `. searchConnector-ms` file anywhere with default read access using `Powershell` or `cmd` and the WebClient service will automatically start.
+Additionally, if an attacker does not have access to a graphical environment and has command execution as a low-privilege user, they can also copy the `. searchConnector-ms` file anywhere with default read access using `Powershell` or `cmd` and the WebClient service will automatically start. This is particularly useful if the environment is mostly filled with Windows 11 devices since none of these methods work by default after Windows 10, including browsing to a directory or share with the `.searchConnector-ms` file. The only thing that does work is either interacting with the file through a graphical environment or copying the file through some form of low-privilege command execution. 
 
 The first case is relatively unlikely to happen in the day-to-day operations of a generic user at their workstation, and the second is sort of likely to happen depending on how resources in the organization are accessed. If the user is accessing a network share, WebClient is activated, meaning an attacker can coerce HTTP authentication from the device to be used as apart of an LDAP relay. Finally the third is the most interesting, since it involves taking the attack into your own hands and trying to remotely start the WebClient service.
 
