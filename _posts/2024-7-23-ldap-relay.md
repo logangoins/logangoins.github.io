@@ -60,9 +60,9 @@ The WebClient service is used to interact with WebDav, which is a 30 year old se
 A difficult part of preforming this attack is having a target with WebClient enabled. There's a few ways the WebClient service is started automatically, all involving user input or interaction unfortunately.
 
 These cases are:
-1. Mapping a WebDav server
+1. Mapping a WebDav server using `net use`
 2. Typing anything into the explorer address bar that isn't a local file or directory
-3. Browsing to a share that has a file with a .[searchConnecter-ms](https://docs.microsoft.com/en-us/windows/win32/search/search-sconn-desc-schema-entry) extension located inside.
+3. Browsing to a directory or share that has a file with a .[searchConnector-ms](https://docs.microsoft.com/en-us/windows/win32/search/search-sconn-desc-schema-entry) extension located inside.
 
 The format of this file looks something like this:
 
@@ -80,6 +80,8 @@ The format of this file looks something like this:
     </simpleLocation>
 </searchConnectorDescription>
 ```
+
+Additionally, if an attacker does not have access to a graphical environment and has command execution as a low-privilege user, they can also copy the `. searchConnector-ms` file anywhere with default read access using `Powershell` or `cmd` and the WebClient service will automatically start.
 
 The first case is relatively unlikely to happen in the day-to-day operations of a generic user at their workstation, and the second is sort of likely to happen depending on how resources in the organization are accessed. If the user is accessing a network share, WebClient is activated, meaning an attacker can coerce HTTP authentication from the device to be used as apart of an LDAP relay. Finally the third is the most interesting, since it involves taking the attack into your own hands and trying to remotely start the WebClient service.
 
