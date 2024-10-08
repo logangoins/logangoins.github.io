@@ -12,9 +12,13 @@ Recently I've been delving into offensive .NET and the abstraction it provides f
 
 These examples are not direct examples from the Cable project, but instead customized examples for the purpose of understanding the Active Directory interaction using the least amount of .NET required for simplicity sakes. For practical examples in an offensive tooling context consult the Cable Github repo.
 
+
+
 # Enumeration
 
 Enumeration is by-far one of the most important procedures to conduct after gaining initial access, especially if you wish to move further into the Active Directory environment or escalate your privileges. Enumeration is how you find the vulnerabilities to do so, and utilizing stealthy Active Directory enumeration should be a top priority to find misconfigurations in the client environment while maintaining undetected. There's no better way to maintain stealth than to utilize the official Microsoft .NET namespaces for interacting with the various protocols required, ideally the interaction with these services would blend in with benign traffic from other operations within the network.
+
+
 
 ## General LDAP Enumeration
 
@@ -132,6 +136,8 @@ Accounts with Resource-Based Constrained Delegation (RBCD) set:
 (msds-allowedtoactonbehalfofotheridentity=*)
 ```
 
+
+
 ## Enumerating Domain Controllers
 
 While easily the least interesting point of enumeration in this section, knowing the addresses and versions of Domain Controllers in the current domain is a primary step in environmental understanding and gaining a better situational context. Enumerating domain controllers is quite easy, with only a few lines of code using the `Domain`, `DomainController`, and `DomainControllerCollection` classes in the `System.DirectoryServices.ActiveDirectory` namespace. 
@@ -173,6 +179,8 @@ foreach (DomainController controller in dcs)
     Console.WriteLine("Version: " + controller.OSVersion + "\n");
 }
 ```
+
+
 
 ## Enumerating Trusts
 
@@ -222,9 +230,13 @@ foreach (TrustRelationshipInformation trust in trusts)
 
 ```
 
+
+
 # Exploitation
 
 Once vulnerabilities in an Active Directory environment have been identified, such as some Discretionary Access Control List (DACL) focused attack vectors using a tool such as Bloodhound, the next step is active exploitation of the vulnerability. This may include principal takeover using Resource-Based Constrained Delegation by modifying the `msDs-AllowedToActOnBehalfOfOtherIdentity` attribute, a targeted Kerberoasting attack by modifying the `servicePrincipalName` attribute, adding the current user context to a controlled group, or even a direct password change on an account if the privileges configured permit it. All the techniques covered in this section will be specifically DACL focused exploitation in Active Directory environments, due to its commonality. 
+
+
 
 ## Writing to msDs-AllowedToActOnBehalfOfOtherIdentity
 
@@ -350,6 +362,8 @@ static void Main(string[] args)
 
 ```
 
+
+
 ## Writing to servicePrincipalName
 
 Writing to the `servicePrincipalName` attribute is a step utilized as apart of a targeted Kerberoasting attack, where after writing to the `servicePrincipalName` attribute, any domain user has the ability to request a service ticket for the target user. This gives that domain user the potential ability to gain the accounts plaintext credentials if they're weak, due to the service ticket requested being encrypted with the target accounts hash.
@@ -378,6 +392,8 @@ foreach (SearchResult sr in results)
     mde.CommitChanges();
 }
 ```
+
+
 
 ## Group Exploitation
 
@@ -416,6 +432,8 @@ groupPrincipal.Members.Add(ctx, IdentityType.SamAccountName, user);
 groupPrincipal.Save();
 ```
 
+
+
 ## Changing Passwords
 
 While its a quite disruptive action to change a users password while having no knowledge of their previous password, mostly due to the possibility of account lockout for the end user, its still a possibility of account access given a write primitive on an account or having `ForceChangePassword` set. Just like permissive ACE's leading to group exploitation, this procedure could be done quite a few ways, including usage of the `net.exe` binary. Remember, utilizing raw command execution for a procedure such as this has bad OPSEC considerations. Just like group ACE exploitation its recommended to execute a .NET assembly in memory to preform exploitation. 
@@ -444,6 +462,8 @@ foreach (SearchResult sr in results)
     mde.Invoke("SetPassword", new object[] { password });
 }
 ```
+
+
 
 # Conclusion
 
