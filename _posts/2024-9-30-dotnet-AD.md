@@ -88,13 +88,21 @@ foreach (SearchResult sr in results)
 A few other examples of ideal LDAP queries for enumeration are also listed below:
 
 Domain users: `(&(ObjectCategory=person)(ObjectClass=user))`
+
 Domain computers: `(ObjectClass=computer)`
+
 Domain groups: `(ObjectCategory=group)`
+
 Group Policy objects: `(ObjectClass=groupPolicyContainer)`
+
 Users that do not require Kerberos pre-authentication: `(&(userAccountControl:1.2.840.113556.1.4.803:=4194304)(!(UserAccountControl:1.2.840.113556.1.4.803:=2)))`
-Admin accounts `(&(admincount=1)(objectClass=user))`
+
+Admin accounts: `(&(admincount=1)(objectClass=user))`
+
 Accounts with unconstrained delegation: `(userAccountControl:1.2.840.113556.1.4.803:=524288)`
+
 Accounts with constrained delegation: `(msds-allowedtodelegateto=*)`
+
 Accounts with Resource-Based Constrained Delegation (RBCD) set: `(msds-allowedtoactonbehalfofotheridentity=*)`
 
 ## Enumerating Domain Controllers
