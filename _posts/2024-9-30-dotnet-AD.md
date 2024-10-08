@@ -54,7 +54,7 @@ After we've retrieved the `SearchResultCollection` value from the `FindAll()` me
 
 We can iterate over each `SearchResult` value in `SearchResultCollection` with a `foreach` loop, and grab specific attributes and their values from the returned objects. Some of the main LDAP attributes to grab and display that come to mind as a baseline are `samAccountName`, `objectSid`, and `distinguishedName`. We can get a string value from the attributes for `samAccountName` and `distinguishedName` by referencing the first key in the `SearchResult` values `Properties` attribute and calling the `ToString()` method on it.
 
-As for the `objectSid` attribute, its slightly different because the SID in Active Directory environments is stored as binary values. So we'll have to read it as a byte array and use it as a constructor to the a class used for handling SID's, `SecurityIdentifier` in the `System.Security.Principal` namespace. We can then get the string value by referencing the `Value` property on that previously created `SecurityIdentifier` object.
+As for the `objectSid` attribute, it's slightly different because the SID in Active Directory environments is stored as binary values. So we'll have to read it as a byte array and use it as a constructor to the a class used for handling SID's, `SecurityIdentifier` in the `System.Security.Principal` namespace. We can then get the string value by referencing the `Value` property on that previously created `SecurityIdentifier` object.
 
 ```cs
 foreach (SearchResult sr in results)
