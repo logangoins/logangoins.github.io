@@ -44,7 +44,7 @@ For example we can set our LDAP query against ADDS to enumerate accounts with th
 ds.Filter = "(&(&(servicePrincipalName=*)(!samAccountName=krbtgt))(!useraccountcontrol:1.2.840.113556.1.4.803:=2)(samAccountType=805306368))";
 ```
 
-Next we define a `SearchResultCollection` variable, `results`, to hold our search results from the enumeration procedures and set it equal to the return value of the `DirectorySearcher` object's `FindAll()` method. Which preforms the enumeration and returns us all the results. The MSDN's description of the `FindAll()` method in the `DirectorySearcher` class as: "Executes the search and returns a collection of the entries that are found."
+Next we define a `SearchResultCollection` variable to hold our search results from the enumeration procedures and set it equal to the return value of the `DirectorySearcher` object's `FindAll()` method, this method preforms the enumeration and returns us all the results. The MSDN's description of the `FindAll()` method in the `DirectorySearcher` class as: "Executes the search and returns a collection of the entries that are found."
 
 ```cs
 SearchResultCollection results = ds.FindAll();
