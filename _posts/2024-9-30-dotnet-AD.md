@@ -234,7 +234,7 @@ public static string accountToSidLookup(string account)
 }
 ```
 
-We can then start our primary method for writing RBCD, starting off my utilizing the `accountToSidLookup` method above to enumerate the desired SID:
+We can now start our primary method for writing RBCD, starting off by utilizing the `accountToSidLookup` method above to enumerate the desired SID:
 
 ```cs
 string sid = accountToSidLookup(account);
