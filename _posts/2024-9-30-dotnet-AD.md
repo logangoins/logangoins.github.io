@@ -248,7 +248,7 @@ Byte[] descriptor = new byte[rsd.BinaryLength];
 rsd.GetBinaryForm(descriptor, 0);
 ```
 
-Next, to write the attribute, we have to have a `SearchResult` object representing the target LDAP object, so we're required again use some previously covered topics from the enumeration section and find the LDAP object associated with the target by querying its `samAccountName`.
+Next, to write the attribute, we have to have a `SearchResult` object representing the target LDAP object, so we're required again to use some previously covered topics from the enumeration section and find the LDAP object associated with the target by querying its `samAccountName`.
 
 ```cs
 SearchResultCollection results;
