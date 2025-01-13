@@ -6,23 +6,23 @@ share-img: https://github.com/user-attachments/assets/1e93a736-e7cd-4d17-8841-a3
 tags: [.NET, Windows, Active Directory]
 ---
 
-.NET is a platform for application development created by Microsoft supporting programs written in a whole host of languages, usually in C#. There are a few versions of .NET, including .NET Framework, .NET Mono, and .NET Core, with the most interesting for offensive development being .NET Framework. This is because .NET Framework has the ability to run natively in Windows and Windows Server environments without the need for any additional dependency installation. Meaning by default it has the greatest operating-system compatibility for Windows and allows post-exploitation procedures natively by loading .NET assemblies in memory through a C2 channel using `execute-assembly` or `inlineExecute-Assembly`. Additionally, because .NET is a Microsoft product and Microsoft wants to ensure compatibility with adjacent products, there's an incredible amount of previously built out methods, classes, and even entire namespaces to interact with Active Directory environments. This makes it by far one of the best platforms to create tools for offensive operations on Active Directory environments after gaining a successful foothold through an active C2 channel.
+.NET is a platform for application development created by Microsoft supporting programs written in a whole host of languages, usually in C#. There are a few versions of .NET, including .NET Framework, .NET Mono, and .NET Core, with the most interesting for offensive development being .NET Framework. This is because .NET Framework has the ability to run natively in Windows and Windows Server environments without the need for any additional dependency installation. Meaning by default it has the greatest operating-system compatibility for Windows and allows post-exploitation procedures natively by loading .NET assemblies in memory through a C2 channel using `execute-assembly` or `inlineExecute-Assembly`. Additionally, because .NET is a Microsoft product and Microsoft wants to ensure compatibility with adjacent products, there's a large amount of previously built out methods, classes, and even entire namespaces to interact with Active Directory environments. This makes it one of the most optimal platforms to create tools for offensive operations on Active Directory environments to be used after gaining a successful foothold through an active C2 channel.
 
-Recently I've been delving into offensive .NET and the abstraction it provides for interacting with Active Directory protocols, while simultaneously building out a tool called Cable to provide examples of how a few of the common Active Directory focused attacks can be executed from an offensive programmatic and tool development perspective. Mostly so I can gain a greater understanding of how these attacks work on a lower-level and how .NET tooling is commonly developed, while also creating a medium to share my knowledge that others can learn from. Cable can be found on my [Github](https://github.com/logangoins/Cable). Note that all of these techniques showcased are likely not the only way to accomplish these tasks, and are just the way I decided to execute these procedures. I'll be trying to breakdown most of the code into parts for better understanding of the techniques.
+Recently I have been delving into offensive .NET and the abstraction it provides for interacting with Active Directory protocols, while simultaneously building out a tool called Cable to provide examples of how a few of the common Active Directory focused attacks can be executed from an offensive programmatic and tool development perspective. This is mostly so I can gain a greater understanding of how these attacks work on a lower-level and how .NET tooling is commonly developed, while also creating a medium to share my knowledge that others can learn from. Cable can be found on my [Github](https://github.com/logangoins/Cable). Note that all of these techniques showcased are likely not the only way to accomplish these tasks and are just the way I decided to execute these procedures. I'll be trying to breakdown most of the code into parts for better understanding of the techniques.
 
-These examples are not direct examples from the Cable project, but instead customized examples for the purpose of understanding the Active Directory interaction using the least amount of .NET required for simplicity sakes. For practical examples in an offensive tooling context consult the Cable Github [repo](https://github.com/logangoins/Cable).
+These examples are not directly from the Cable project, but instead customized examples for the purpose of understanding the Active Directory interaction using the least amount of .NET required for simplicity sakes. For practical examples in an offensive tooling context consult the Cable Github [repo](https://github.com/logangoins/Cable).
 
 
 
 # Enumeration
 
-Enumeration is by-far one of the most important procedures to conduct after gaining initial access, especially if you wish to move further into the Active Directory environment or escalate your privileges. Enumeration is how you find the vulnerabilities to do so, and utilizing stealthy Active Directory enumeration should be a top priority to find misconfigurations in the client environment while staying undetected. There's no better way to maintain stealth than to utilize the official Microsoft .NET namespaces for interacting with the various protocols required, ideally the interaction with these services would blend in with benign traffic from other operations within the network.
+Enumeration is by-far one of the most important procedures to conduct after gaining initial access, especially if you wish to move further into the Active Directory environment or escalate your privileges. Enumeration is how you find the vulnerabilities to do so, and utilizing stealthy Active Directory enumeration should be a top priority to find misconfigurations in the client environment while staying undetected. There is no better way to maintain stealth than to utilize the official Microsoft .NET namespaces for interacting with the various protocols required, ideally the interaction with these services would blend in with benign traffic from other operations within the network.
 
 
 
 ## General LDAP Enumeration
 
-General LDAP enumeration is incredibly easy from a .NET perspective, likely due to the reliance of Active Directory on LDAP. The `System.DirectoryServices` namespace has a large amount of pre-built functionality for interacting with specifically LDAP or LDAP(S). Not only this, but LDAP is the primary place for data storage in Active Directory environments, which means this first example is the most useful and flexible of all the briefly touched on enumeration techniques. 
+General LDAP enumeration is quite streamlined from a .NET perspective, likely due to the reliance of Active Directory on LDAP. The `System.DirectoryServices` namespace has a number of pre-built functionality for interacting with specifically LDAP or LDAP(S). Not only this, but LDAP is the primary place for data storage in Active Directory environments, which means this first example is the most useful and flexible of all the briefly touched on enumeration techniques. 
 
 To begin LDAP enumeration first utilize the `DirectoryEntry` class in the `System.DirectoryServices` namespace to bind to the root of the LDAP service on the Domain Controller. The definition of this class in the MSDN states: "The DirectoryEntry class encapsulates a node or object in the Active Directory Domain Services hierarchy". If we initialize a new instance of the `DirectoryEntry` class without a constructor specified we'll automatically bind to the root of Active Directory Domain Services (ADDS) on the current domain with everything being handled in the background.
 
@@ -38,13 +38,13 @@ DirectorySearcher ds = new DirectorySearcher(de);
 
 We can then set the `Filter` property on this object, `ds`, to our LDAP query. The MSDN defines the `Filter` property on the `DirectorySearcher` class to "Get or set a value indicating the Lightweight Directory Access Protocol (LDAP) format filter string."
 
-For example we can set our LDAP query against ADDS to enumerate accounts with the `servicePrincipalName` attribute set, that aren't disabled with the `userAccountControl` bit `2`, aren't the `krbtgt` domain account, and are domain users. The accounts resolved would be high value accounts very likely to be associated with services on the domain, and are also Kerberoastable.
+For example we can set our LDAP query against ADDS to enumerate accounts with the `servicePrincipalName` attribute set, that are not disabled with the `userAccountControl` bit `2`, are not the `krbtgt` domain account, and are domain users. The accounts resolved would be high value accounts very likely to be associated with services on the domain, and are also Kerberoastable.
 
 ```cs
 ds.Filter = "(&(&(servicePrincipalName=*)(!samAccountName=krbtgt))(!useraccountcontrol:1.2.840.113556.1.4.803:=2)(samAccountType=805306368))";
 ```
 
-Next we define a `SearchResultCollection` variable to hold our search results from the enumeration procedures and set it equal to the return value of the `DirectorySearcher` object's `FindAll()` method, this method preforms the enumeration and returns us all the results. The MSDN's description of the `FindAll()` method in the `DirectorySearcher` class as: "Executes the search and returns a collection of the entries that are found."
+Next we define a `SearchResultCollection` variable to hold our search results from the enumeration procedures and set it equal to the return value of the `DirectorySearcher` object's `FindAll()` method, this method preforms the enumeration and returns us all the results. The MSDN's description of the `FindAll()` method in the `DirectorySearcher` class is defined as: "Executes the search and returns a collection of the entries that are found."
 
 ```cs
 SearchResultCollection results = ds.FindAll();
@@ -105,7 +105,7 @@ A few other examples of ideal LDAP queries for enumeration are also listed below
 
 ## Enumerating Domain Controllers
 
-While easily the least interesting point of enumeration in this section, knowing the addresses and versions of Domain Controllers in the current domain is a primary step in environmental understanding and gaining a better situational context. Enumerating domain controllers is quite easy, with only a few lines of code using the `Domain`, `DomainController`, and `DomainControllerCollection` classes in the `System.DirectoryServices.ActiveDirectory` namespace. 
+Enumerating Domain Controllers, including knowing the addresses and versions of Domain Controllers in the current domain is a primary step in environmental understanding and gaining a better situational context. Enumerating domain controllers is quite easy, with only a few lines of code using the `Domain`, `DomainController`, and `DomainControllerCollection` classes in the `System.DirectoryServices.ActiveDirectory` namespace. 
 
 First we can get a `Domain` object by calling the `GetCurrentDomain()` method apart of the `Domain` class. 
 
@@ -205,9 +205,9 @@ Once vulnerabilities in an Active Directory environment have been identified, su
 
 ## Writing to msDs-AllowedToActOnBehalfOfOtherIdentity
 
-As previously mentioned, writing to `msDs-AllowedToActOnBehalfOfOtherIdentity` with another accounts Security Identifier (SID) permits the account identified by the SID to delegate to the account which the attribute has been modified on, this is called Resource-Based Constrained Delegation (RBCD). This technique is especially important in the context of device takeover using overly permissive Access Control Entries (ACE) in Active Directory environments. While we may have `GenericAll` or `GenericWrite` over the target computer account, how do we actually exploit it? Using our write primitive we can write the SID of a previously controlled account with a `servicePrincipalName` set, potentially a newly added machine account (if the `machineAccountQuota` is greater than 0), then use that controlled computer to delegate to the target computer as whatever Active Directory principal we wish. Usually we'd choose a user within the "Domain Admins" group for guaranteed command execution onto the computer. Note: although we have delegation access to the target computer, we cannot use that context to authenticate to other resources in the domain as the user in "Domain Admins", it's just restricted to the target resource. 
+As previously mentioned, writing to `msDs-AllowedToActOnBehalfOfOtherIdentity` with another accounts Security Identifier (SID) permits the account identified by the SID to delegate to the account which the attribute has been modified on, this is called Resource-Based Constrained Delegation (RBCD). This technique is especially important in the context of device takeover using overly permissive Access Control Entries (ACE) in Active Directory environments. While we may have `GenericAll` or `GenericWrite` over the target computer account, how do we actually exploit it? Using our write primitive we can write the SID of a previously controlled account with a `servicePrincipalName` set, potentially a newly added machine account (if the `machineAccountQuota` is greater than 0), then use that controlled computer to delegate to the target computer as whatever Active Directory principal we wish. Usually we would choose a user within the "Domain Admins" group for guaranteed command execution onto the target. Note: although we have delegation access to the target computer, we cannot use that context to authenticate to other resources in the domain as the user in "Domain Admins", it's just restricted to the target resource. 
 
-We can write the `msDs-AllowedToActOnBehalfOfOtherIdentity` attribute just as easy as we can read it, using a large portion of the previously shown classes and method calls. We'll first need a method for account to SID lookup, since we need to write the SID of our controlled account to the target account. This step isn't absolutely required if you wanted to enumerate the SID yourself. I've built out a method to automate the action, which takes the account we'd like to look up the SID for as a parameter and utilizing the same techniques shown in the enumeration section we can return the designated SID associated with the account.
+We can write the `msDs-AllowedToActOnBehalfOfOtherIdentity` attribute just as easy as we can read it using a large portion of the previously shown classes and method calls. We'll first need a method for account to SID lookup since we need to write the SID of our controlled account to the target account. Note this step isn't absolutely required if you wanted to enumerate and hardcode the SID yourself. I've built out a method to automate the action which takes the account we'd like to look up the SID for as a parameter and utilizes the same techniques shown in the enumeration section to return the designated SID associated with the account.
 
 The code for the SID lookup method is shown below:
 
@@ -248,7 +248,7 @@ Byte[] descriptor = new byte[rsd.BinaryLength];
 rsd.GetBinaryForm(descriptor, 0);
 ```
 
-Next, to write the attribute, we have to have a `SearchResult` object representing the target LDAP object, so we're required again to use some previously covered topics from the enumeration section and find the LDAP object associated with the target by querying its `samAccountName`.
+Next, to write the attribute, we have to have a `SearchResult` object representing the target LDAP object. So we're required again to use some previously covered topics from the enumeration section and find the LDAP object associated with the target by querying its `samAccountName`.
 
 ```cs
 SearchResultCollection results;
@@ -272,7 +272,7 @@ While only one object will be returned, I opted to use a `foreach` loop for ease
  }
 ```
 
-Now that the `msDs-AllowedToActOnBehalfOfOtherIdentity` attribute has been modified, a service ticket can be requested for the target account from the controlled account using Service for User to Proxy (S4U2Proxy), which requires a forwardable Ticket Granting Ticket (TGT) from a Service for User to Self (S4U2Self) to impersonate whichever desired user account. This process is the rest of the RBCD attack, which won't be covered with a code example. 
+Now that the `msDs-AllowedToActOnBehalfOfOtherIdentity` attribute has been modified, a service ticket can be requested for the target account from the controlled account using Service for User to Proxy (S4U2Proxy), which requires a forwardable Ticket Granting Ticket (TGT) from a Service for User to Self (S4U2Self) to impersonate whichever desired user account. This process is the next step of the RBCD attack, which will not be covered with a code example. 
 
 The full example code is listed below:
 
@@ -331,9 +331,9 @@ static void Main(string[] args)
 
 ## Writing to servicePrincipalName
 
-Writing to the `servicePrincipalName` attribute is a step utilized as apart of a targeted Kerberoasting attack, where after writing to the `servicePrincipalName` attribute, any domain user has the ability to request a service ticket for the target user. This gives that domain user the potential ability to gain the accounts plaintext credentials if they're weak, due to the service ticket requested being encrypted with the target accounts hash.
+Writing to the `servicePrincipalName` attribute is a step utilized as apart of a targeted Kerberoasting attack, where after writing to the `servicePrincipalName` attribute any domain user has the ability to request a service ticket for the target user. This gives such a domain user the ability to gain access to the accounts plaintext credentials (if they're weak) due to the service ticket requested being encrypted with the target accounts hash.
 
-Writing to the `servicePrincipalName` attribute is exactly like writing `msDs-AllowedToActOnBehalfOfOtherIdentity`, except without a large portion of the steps for gathering a valid SID. First we'll need to gather a `SearchResult` for the target object, then gather an associated `DirectoryEntry` object to interact with. Finally call the add `Add()` method just like the previous section on the specified attribute, while passing in the desired value. Finally call `CommitChanges()` to save.
+Writing to the `servicePrincipalName` attribute is exactly like writing `msDs-AllowedToActOnBehalfOfOtherIdentity` except without a large portion of the steps for gathering a valid SID. First we'll need to gather a `SearchResult` for the target object, then gather an associated `DirectoryEntry` object to interact with. Next call the `Add()` method just like the previous section on the specified attribute while passing in the desired value. Finally call `CommitChanges()` to save.
 
 The full code for this example is below:
 
@@ -362,7 +362,7 @@ foreach (SearchResult sr in results)
 
 ## Group Exploitation
 
-Having a write primitive over a group object because of a permissive Access Control Entry (ACE) allows us to add users to that group, for example our own user. This group which we have write access to could also hold additional privileges in the Active Directory environment, furthering our access and allowing us to potentially interact with more resources or laterally move. While you may be thinking the obvious exploitation method for this technique would to just use the built in Windows utility `net.exe`, for operational security (OPSEC) considerations executing the group adding procedure using a .NET assembly in memory is a much better idea. These OPSEC considerations include the fact that you might be required to spawn `cmd.exe` or `powershell.exe` to execute `net.exe`, which is commonly flagged and very likely logged. 
+Having a write primitive over a group object because of a permissive Access Control Entry (ACE) allows us to add users to that group, for example our own user. This group which we have write access to could also hold additional privileges in the Active Directory environment, furthering our access and allowing us to potentially interact with more resources or laterally move. While you may be thinking the obvious exploitation method for this technique would to just use the built in Windows utility `net.exe`, for operational security (OPSEC) considerations executing the group adding procedure using a .NET assembly in memory is much less likely to get detected. These OPSEC considerations include the fact that you might be required to spawn `cmd.exe` or `powershell.exe` to execute `net.exe`, which is commonly flagged and very likely logged. 
 
 The `System.DirectoryServices.AccountManagement` namespace has some capability we can utilize to add our current user or any other user to a group which we have control over. Adding any user to a target group can be done in four simple lines.
 
@@ -401,7 +401,7 @@ groupPrincipal.Save();
 
 ## Changing Passwords
 
-While its a quite disruptive action to change a users password while having no knowledge of their previous password, mostly due to the possibility of account lockout for the end user, its still a possibility of account access given a write primitive on an account or having `ForceChangePassword` set. Just like permissive ACE's leading to group exploitation, this procedure could be done quite a few ways, including usage of the `net.exe` binary. Remember, utilizing raw command execution for a procedure such as this has bad OPSEC considerations. Just like group ACE exploitation its recommended to execute a .NET assembly in memory to preform exploitation. 
+While it is a quite disruptive action to change a users password while having no knowledge of their previous password mostly due to the possibility of account lockout for the end user, it is still a possibility of account access given a write primitive on an account or having `ForceChangePassword` set. Just like permissive ACE's leading to group exploitation, this procedure could be done quite a few ways, including usage of the `net.exe` binary. Remember, utilizing raw command execution for a procedure such as this has bad OPSEC considerations. Just like group ACE exploitation its recommended to execute a .NET assembly in memory to preform exploitation. 
 
 Once again, changing passwords for accounts utilizes a large portion of previous topics covered in this blog post.
 
@@ -432,8 +432,9 @@ foreach (SearchResult sr in results)
 
 # Conclusion
 
-Previously built Microsoft .NET capabilities and abstraction usually used for preforming common tasks in an Active Directory environment can be just as easily utilized for offensive purposes. This, combined with the ease of executing .NET assemblies in memory makes Active Directory focused tooling written in .NET extremely easy to create and quite effective at stealthy interaction. One of the only factors that could be seen as a downside to using Active Directory interaction with .NET is the inevitable reality of attempting an action for which pre-created abstraction is not engineered, which would require you to create your own capability, which isn't necessarily a downside since such an action would require the same customization in other languages as well. 
+Previously built Microsoft .NET capabilities and abstraction usually used for performing common tasks in an Active Directory environment can be just as easily utilized for offensive purposes. This, combined with the ease of executing .NET assemblies in memory makes Active Directory focused tooling written in .NET easy to create and quite effective at stealthy interaction. One of the only factors that could be seen as a downside to using Active Directory interaction with .NET is the inevitable reality of attempting an action for which pre-created abstraction is not engineered, which might require you to create your own capability. Although yes, .NET cannot do everything, this is not necessarily a downside since such an action would require the same customization just the same in another language. 
 
+All the code used in this post are fully customized examples for demonstration purposes, please visit Cable’s GitHub [repo](https://github.com/logangoins/Cable) for practical examples. 
 
 
 
