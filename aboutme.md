@@ -10,10 +10,12 @@ Here's a quick summary of my experiences, tooling development, research, and com
 - **Education:**
   - Bachelors in Cybersecurity, [The University of Texas at San Antonio](https://www.utsa.edu/) (August 2023 to May 2026)
 - **Tooling Development:**
+  - [SoaPy](https://github.com/xforcered/SoaPy), Proof of Concept (PoC) Python tool for conducting offensive interaction with Active Directory Web Services (ADWS) from Linux hosts. 
   - [Stifle](https://github.com/logangoins/Stifle), a .NET post-exploitation utility to exploit strong explicit certificate mappings (ESC14) for account takeover in Active Directory environments.
   - [Krueger](https://github.com/logangoins/Krueger), Proof of Concept (PoC) .NET tool for remotely disabling EDR with weaponized WDAC to enable lateral movement.
   - [Cable](https://github.com/logangoins/Cable), .NET post-exploitation toolkit for Active Directory reconnaissance and exploitation.
 - **Research:**
+  - [SoaPy: Stealthy enumeration of Active Directory environments through ADWS](https://securityintelligence.com/x-force/stealthy-enumeration-of-active-directory-environments-through-adws/)
   - [Using Offensive .NET to Enumerate and Exploit Active Directory Environments](https://logan-goins.com/2024-10-11-Dotnet-AD/)
   - [NTLM Relaying to LDAP - The Hail Mary of Network Compromise](https://logan-goins.com/2024-07-23-ldap-relay/)
   - [Active Directory Certificate Services (AD CS) - A Beautifully Vulnerable and Mis-configurable Mess](https://logan-goins.com/2024-05-04-ADCS/)
