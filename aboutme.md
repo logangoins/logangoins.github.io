@@ -1,14 +1,15 @@
-I'm Logan Goins, a current Offensive Security Consultant Co-op working part time at IBM X-Force Red. I'm interested in adversarial Active Directory offensive operations and .NET post-exploitation tooling development.
+I'm Logan Goins, an Associate Adversary Simulation Consultant at SpecterOps. I'm interested in adversarial Active Directory offensive operations and .NET post-exploitation tooling development.
 
 ---
 
 Here's a quick summary of my experiences, tooling development, research, and community involvement:
 
 - **Experience:**
-  - Offensive Security Consultant Co-op at [IBM X-Force Red](https://www.ibm.com/services/offensive-security) (January 2025 to Present)
+  - Associate Adversary Simulation Consultant at [SpecterOps](https://specterops.io/) (May 2025 to Present)
+  - Offensive Security Consultant Co-op at [IBM X-Force Red](https://www.ibm.com/services/offensive-security) (January 2025 to May 2025)
   - Offensive Security Consultant Intern at [IBM X-Force Red](https://www.ibm.com/services/offensive-security) (May 2024 to August 2024)
 - **Education:**
-  - Bachelors in Cybersecurity, [The University of Texas at San Antonio](https://www.utsa.edu/) (August 2023 to May 2026)
+  - Bachelors in Cybersecurity, [The University of Texas at San Antonio](https://www.utsa.edu/) (August 2023 to August 2026)
 - **Tooling Development:**
   - [SoaPy](https://github.com/xforcered/SoaPy), Proof of Concept (PoC) Python tool for conducting offensive interaction with Active Directory Web Services (ADWS) from Linux hosts. 
   - [Stifle](https://github.com/logangoins/Stifle), a .NET post-exploitation utility to exploit strong explicit certificate mappings (ESC14) for account takeover in Active Directory environments.
