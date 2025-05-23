@@ -1,11 +1,11 @@
-I'm Logan Goins, an Associate Adversary Simulation Consultant at SpecterOps. I'm interested in adversarial Active Directory offensive operations and .NET post-exploitation tooling development.
+I'm Logan Goins, an Associate Consultant on SpecterOps's Adversary Simulation team. I'm interested in adversarial Active Directory operations and .NET post-exploitation capability development.
 
 ---
 
 Here's a quick summary of my experiences, tooling development, research, and community involvement:
 
 - **Experience:**
-  - Associate Adversary Simulation Consultant at [SpecterOps](https://specterops.io/) (May 2025 to Present)
+  - Associate Consultant, Adversary Simulation at [SpecterOps](https://specterops.io/) (May 2025 to Present)
   - Offensive Security Consultant Co-op at [IBM X-Force Red](https://www.ibm.com/services/offensive-security) (January 2025 to May 2025)
   - Offensive Security Consultant Intern at [IBM X-Force Red](https://www.ibm.com/services/offensive-security) (May 2024 to August 2024)
 - **Education:**
@@ -16,6 +16,7 @@ Here's a quick summary of my experiences, tooling development, research, and com
   - [Krueger](https://github.com/logangoins/Krueger), Proof of Concept (PoC) .NET tool for remotely disabling EDR with weaponized WDAC to enable lateral movement.
   - [Cable](https://github.com/logangoins/Cable), .NET post-exploitation toolkit for Active Directory reconnaissance and exploitation.
 - **Research:**
+  - [Attacking and Defending Configuration Manager - An Attackers Easy Win](https://logan-goins.com/2025-04-25-sccm/)
   - [SoaPy: Stealthy enumeration of Active Directory environments through ADWS](https://securityintelligence.com/x-force/stealthy-enumeration-of-active-directory-environments-through-adws/)
   - [Using Offensive .NET to Enumerate and Exploit Active Directory Environments](https://logan-goins.com/2024-10-11-Dotnet-AD/)
   - [NTLM Relaying to LDAP - The Hail Mary of Network Compromise](https://logan-goins.com/2024-07-23-ldap-relay/)
