@@ -11,6 +11,7 @@ Here's a quick summary of my experiences, tooling development, research, and com
 - **Education:**
   - Bachelors in Cybersecurity, [The University of Texas at San Antonio](https://www.utsa.edu/) (August 2023 to August 2026)
 - **Tooling Development:**
+  - [SharpSuccessor](https://github.com/logangoins/SharpSuccessor), .NET Proof of Concept (POC) for fully weaponizing Yuval Gordon’s (@YuG0rd) BadSuccessor attack from Akamai.
   - [SoaPy](https://github.com/xforcered/SoaPy), Proof of Concept (PoC) Python tool for conducting offensive interaction with Active Directory Web Services (ADWS) from Linux hosts. 
   - [Stifle](https://github.com/logangoins/Stifle), a .NET post-exploitation utility to exploit strong explicit certificate mappings (ESC14) for account takeover in Active Directory environments.
   - [Krueger](https://github.com/logangoins/Krueger), Proof of Concept (PoC) .NET tool for remotely disabling EDR with weaponized WDAC to enable lateral movement.
