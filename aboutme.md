@@ -16,11 +16,12 @@ Here's a quick summary of my experiences, tooling development, research, and com
   - [Stifle](https://github.com/logangoins/Stifle), a .NET post-exploitation utility to exploit strong explicit certificate mappings (ESC14) for account takeover in Active Directory environments.
   - [Krueger](https://github.com/logangoins/Krueger), Proof of Concept (PoC) .NET tool for remotely disabling EDR with weaponized WDAC to enable lateral movement.
   - [Cable](https://github.com/logangoins/Cable), .NET post-exploitation toolkit for Active Directory reconnaissance and exploitation.
-- **Research:**
+- **Blogs:**
+  - [Make Sure to Use SOAP(y) – An Operators Guide to Stealthy AD Collection Using ADWS](https://specterops.io/blog/2025/07/25/make-sure-to-use-soapy-an-operators-guide-to-stealthy-ad-collection-using-adws/) 
   - [Attacking and Defending Configuration Manager - An Attackers Easy Win](https://logan-goins.com/2025-04-25-sccm/)
-  - [SoaPy: Stealthy enumeration of Active Directory environments through ADWS](https://securityintelligence.com/x-force/stealthy-enumeration-of-active-directory-environments-through-adws/)
-  - [Using Offensive .NET to Enumerate and Exploit Active Directory Environments](https://logan-goins.com/2024-10-11-Dotnet-AD/)
-  - [NTLM Relaying to LDAP - The Hail Mary of Network Compromise](https://logan-goins.com/2024-07-23-ldap-relay/)
+  - [SoaPy: Stealthy enumeration of Active Directory environments through ADWS](https://securityintelligence.com/x-force/stealthy-enumeration-of-active-directory-environments-through-adws/) 
+  - [Using Offensive .NET to Enumerate and Exploit Active Directory Environments](https://logan-goins.com/2024-10-11-Dotnet-AD/) 
+  - [NTLM Relaying to LDAP - The Hail Mary of Network Compromise](https://logan-goins.com/2024-07-23-ldap-relay/) 
   - [Active Directory Certificate Services (AD CS) - A Beautifully Vulnerable and Mis-configurable Mess](https://logan-goins.com/2024-05-04-ADCS/)
 - **Certifications:**
   - [Certified Red Team Operator](https://eu.badgr.com/public/assertions/LE9IwKZQT72LXdXRbPJwQw) (CRTO)
