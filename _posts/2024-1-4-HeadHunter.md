@@ -4,7 +4,7 @@ title: Diving into HeadHunter
 subtitle: a Command and Control Framework Written in C
 thumbnail-img: https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/38a0993b-569d-4a87-9742-675d2759407f
 share-img: https://github.com/shellph1sh/shellph1sh.github.io/assets/55106700/38a0993b-569d-4a87-9742-675d2759407f
-tags: [MalDev, Windows, Linux, Pentesting]
+tags: [MalDev, Windows, Linux, Pentesting, Archive]
 ---
 
 <p align="center">

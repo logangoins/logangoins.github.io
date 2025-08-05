@@ -8,6 +8,7 @@ layout: page
 
 <div class="posts-list">
   {% for post in posts %}
+    {% unless post.tags contains 'Archive' %}
   <article class="post-preview">
 
     {%- capture thumbnail -%}
@@ -86,6 +87,7 @@ layout: page
     {% endif %}
 
    </article>
+    {% endunless %}
   {% endfor %}
 </div>
 
