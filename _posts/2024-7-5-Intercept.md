@@ -4,7 +4,7 @@ title: Intercept
 subtitle: Vulnlab writeup
 thumbnail-img: https://assets.vulnlab.com/intercept_slide.png
 share-img: https://assets.vulnlab.com/intercept_slide.png
-tags: [Pentesting, Active Directory, Vulnlab]
+tags: [Pentesting, Active Directory, Vulnlab, Archive]
 ---
 
 # Introduction

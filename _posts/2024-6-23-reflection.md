@@ -4,7 +4,7 @@ title: Reflection
 subtitle: Vulnlab writeup
 thumbnail-img: https://assets.vulnlab.com/reflection_slide.png
 share-img: https://assets.vulnlab.com/reflection_slide.png
-tags: [Pentesting, Active Directory, Vulnlab]
+tags: [Pentesting, Active Directory, Vulnlab, Archive]
 ---
 
 # Introduction

@@ -15,6 +15,7 @@ author: Logan Goins
 
 navbar-links:
   About Me: "aboutme"
+  Archive: "archive"
   Linkedin: "https://linkedin.com/in/logan-goins"
   Twitter: "https://x.com/_logangoins"
   Github: "https://github.com/logangoins"
@@ -213,7 +214,7 @@ timezone: "America/Toronto"
 markdown: kramdown
 highlighter: rouge
 permalink: /:year-:month-:day-:title/
-paginate: 5
+paginate: 20
 
 kramdown:
   input: GFM
@@ -228,6 +229,14 @@ defaults:
       layout: "post"
       comments: true  # add comments to all blog posts
       social-share: true # add social media sharing buttons to all blog posts
+  -
+    scope:
+      path: ""
+      type: "archive"
+    values:
+      layout: "post"
+      comments: true
+      social-share: true
   -
     scope:
       path: "" # any file that's not a post will be a "page" layout by default
@@ -252,4 +261,5 @@ plugins:
   - jekyll-twitter-plugin
 # Beautiful Jekyll / Dean Attali
 # 2fc73a3a967e97599c9763d05e564189
+
 
