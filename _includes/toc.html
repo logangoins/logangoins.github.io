@@ -1,0 +1,82 @@
+<div id="toc-container" class="toc-container">
+  <div class="toc-header">
+    <h4>Contents</h4>
+    <button id="toc-toggle" class="toc-toggle">−</button>
+  </div>
+  <nav id="toc" class="toc-content"></nav>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const article = document.querySelector('article.blog-post');
+  const toc = document.getElementById('toc');
+  const tocContainer = document.getElementById('toc-container');
+  const tocToggle = document.getElementById('toc-toggle');
+  
+  if (!article) return;
+  
+  const headings = article.querySelectorAll('h1, h2, h3, h4, h5, h6');
+  
+  if (headings.length === 0) {
+    tocContainer.style.display = 'none';
+    return;
+  }
+  
+  let tocHTML = '<ul class="toc-list">';
+  let currentLevel = 1;
+  
+  headings.forEach(function(heading, index) {
+    if (!heading.id) {
+      heading.id = 'heading-' + index;
+    }
+    
+    const level = parseInt(heading.tagName.charAt(1));
+    const text = heading.textContent;
+    
+    if (level > currentLevel) {
+      for (let i = currentLevel; i < level; i++) {
+        tocHTML += '<ul class="toc-list">';
+      }
+    } else if (level < currentLevel) {
+      for (let i = level; i < currentLevel; i++) {
+        tocHTML += '</ul>';
+      }
+    }
+    
+    tocHTML += '<li class="toc-item toc-level-' + level + '"><a href="#' + heading.id + '" class="toc-link">' + text + '</a></li>';
+    
+    currentLevel = level;
+  });
+  
+  for (let i = 1; i < currentLevel; i++) {
+    tocHTML += '</ul>';
+  }
+  tocHTML += '</ul>';
+  
+  toc.innerHTML = tocHTML;
+  
+  tocToggle.addEventListener('click', function() {
+    const content = document.querySelector('.toc-content');
+    if (content.style.display === 'none') {
+      content.style.display = 'block';
+      tocToggle.textContent = '−';
+    } else {
+      content.style.display = 'none';
+      tocToggle.textContent = '+';
+    }
+  });
+  
+  document.querySelectorAll('.toc-link').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+});
+</script>

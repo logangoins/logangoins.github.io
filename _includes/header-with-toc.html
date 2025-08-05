@@ -1,0 +1,37 @@
+
+
+<!-- only for posts with TOC -->
+<link rel="stylesheet" href="{{ '/css/toc.css' | relative_url }}">
+
+<header class="header-section {% if page.cover-img %}has-img{% endif %}">
+  {% if page.cover-img %}
+    <!-- your big-img block stays untouched -->
+    <div class="big-img intro-header">
+      <div class="container-md">
+        … your existing cover-img carousel …
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="intro-header no-img">
+    <div class="container-md">
+
+      <!-- ─── RIGHT-SIDEBAR TOC ─────────────────────────── -->
+      {% include toc.html %}
+
+      <!-- ─── SITE TITLE & META ─────────────────────────── -->
+      <div class="row">
+        <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+          <div class="post-heading">
+            <h1>{{ page.title | strip_html }}</h1>
+            {% if page.subtitle %}
+              <h2 class="post-subheading">{{ page.subtitle | strip_html }}</h2>
+            {% endif %}
+            <span class="post-meta">Posted on {{ page.date | date: site.date_format }}</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</header>
