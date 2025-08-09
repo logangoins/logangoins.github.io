@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Stealthy enumeration of Active Directory environments through ADWS
-thumbnail-img: https://github.com/user-attachments/assets/9e106207-6d7f-43b2-bc84-11eb577840e8
-share-img: https://github.com/user-attachments/assets/9e106207-6d7f-43b2-bc84-11eb577840e8
+thumbnail-img: https://logan-goins.com/assets/img/adws/leadspace_article.jpg
+share-img: https://logan-goins.com/assets/img/adws/leadspace_article.jpg
 tags: [Windows, Active Directory, Adversary Simulation]
 ---
 
