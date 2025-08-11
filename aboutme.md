@@ -1,6 +1,6 @@
 Hi I'm Logan Goins, an Associate Consultant on the Adversary Simulation team at SpecterOps. As part of Consulting Services, I perform offensive security assessments on clients looking to measure impact in the case of a breach or improve their detection and response capabilities. 
 
-Additionally, I love to continuously learn and develop new tools and tradecraft for exploiting easily mis-configurable or complex technologies which may enable risk for an organization. Specifically, technologies such as Active Directory Certificate Services (ADCS) and System Center Configuration Manager (SCCM). 
+Additionally, I love to continuously learn and develop new tools and tradecraft for exploiting or utilizing easily mis-configurable or complex technologies which may enable risk for an organization.
 
 ---
 
