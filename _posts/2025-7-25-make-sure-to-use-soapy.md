@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: post-with-toc
 title: Make Sure to Use SOAP(y) – An Operators Guide to Stealthy AD Collection Using ADWS
 thumbnail-img: https://logan-goins.com/assets/img/adws/figure-1.png
 share-img: https://logan-goins.com/assets/img/adws/figure-1.png
