@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: post-with-toc
 title: NTLM Relaying to LDAP - The Hail Mary of Network Compromise
 thumbnail-img: https://github.com/user-attachments/assets/adeb37c9-ceb6-44be-96df-60c15de04e48
 share-img: https://github.com/user-attachments/assets/ecbc3e6b-9594-48ba-8500-380a4bf7a816
