@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: post-with-toc
 title: Stealthy Enumeration of Active Directory Environments Through ADWS
 thumbnail-img: https://logan-goins.com/assets/img/adws/leadspace_article.jpg
 share-img: https://logan-goins.com/assets/img/adws/leadspace_article.jpg
