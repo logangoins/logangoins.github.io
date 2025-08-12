@@ -1,19 +1,20 @@
 ---
 layout: base
 ---
-
-
 <!-- Add TOC CSS -->
 <link rel="stylesheet" href="{{ '/css/toc.css' | relative_url }}">
 
 
+{% include header-with-toc.html type="post" %}
+
+<!-- TOC in left margin -->
+<div class="toc-left-margin d-none d-lg-block">
+  {% include toc.html %}
+</div>
 
 <div class="{% if page.full-width %} container-fluid {% else %} container-md {% endif %}">
-    {% include header.html type="post" %}
-    <!-- Include TOC -->
-    {% include toc.html %}
   <div class="row">
-    <div class="{% if page.full-width %} col {% else %} col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 {% endif %}">
+    <div class="{% if page.full-width %} col {% else %} col-xl-7 offset-xl-3 col-lg-10 offset-lg-1 {% endif %}">
 
       {% if page.gh-repo %}
         {% assign gh_split =  page.gh-repo | split:'/'  %}

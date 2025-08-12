@@ -1,26 +1,39 @@
-/* Table of Contents Styles */
-.toc-container {
-  float: right;
-  width: 300px;
+/* TOC positioned in left margin, aligned with body text */
+.toc-left-margin {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 280px;
   max-height: 70vh;
+  z-index: 100;
+}
+
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .toc-left-margin {
+    /* Position to the left of the main content area */
+    left: calc((100vw - 960px) / 2 - 100px);
+  }
+}
+
+/* If screen is too narrow for left margin, hide TOC */
+@media (max-width: 1400px) {
+  .toc-left-margin {
+    display: none !important;
+  }
+}
+
+/* TOC container styling */
+.toc-container {
+  width: 100%;
   background: #f8f9fa;
   border: 1px solid #e9ecef;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  margin: 10px 0 10px 2px;
+  margin: 0;
   font-size: 0.85em;
-  position: sticky;
-  top: 120px;
 }
-
-.intro-header {
-  margin-right: -160px !important;
-}
-/* Adjust content area for posts with TOC */
-.blog-post {
-  margin-right: -160px; /* Width of TOC + margin space */
-}
-
 
 .toc-header {
   display: flex;
@@ -76,12 +89,13 @@
 
 .toc-link {
   display: block;
-  padding: 4px 16px;
+  padding: 6px 16px;
   color: #495057;
   text-decoration: none;
   border-left: 3px solid transparent;
   transition: all 0.2s ease;
   line-height: 1.4;
+  font-size: 0.9em;
 }
 
 .toc-link:hover {
@@ -94,55 +108,40 @@
 .toc-level-1 .toc-link {
   font-weight: 600;
   padding-left: 16px;
-}
-
-.toc-level-2 .toc-link {
-  padding-left: 28px;
   font-size: 0.95em;
 }
 
-.toc-level-3 .toc-link {
-  padding-left: 40px;
+.toc-level-2 .toc-link {
+  padding-left: 24px;
   font-size: 0.9em;
 }
 
-.toc-level-4 .toc-link {
-  padding-left: 52px;
+.toc-level-3 .toc-link {
+  padding-left: 32px;
   font-size: 0.85em;
 }
 
+.toc-level-4 .toc-link {
+  padding-left: 40px;
+  font-size: 0.8em;
+}
+
 .toc-level-5 .toc-link {
-  padding-left: 64px;
+  padding-left: 48px;
   font-size: 0.8em;
 }
 
 .toc-level-6 .toc-link {
-  padding-left: 76px;
+  padding-left: 56px;
   font-size: 0.8em;
 }
 
-/* Hide TOC on smaller screens */
-@media (max-width: 1200px) {
-  .toc-container {
-    display: none;
-  }
-  
-  /* Reset margins when TOC is hidden */
-  .blog-post {
-    margin-right: 0 !important;
-  }
-  
-  .container-md .col-xl-8,
-  .container-md .col-lg-10 {
-    margin-right: 0 !important;
-    width: 66.666667% !important;
-  }
-  
-  .intro-header .page-heading,
-  .intro-header .post-heading {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
+/* Active link highlighting */
+.toc-link.active {
+  background-color: #e9ecef;
+  color: #09B36B;
+  border-left-color: #09B36B;
+  font-weight: 600;
 }
 
 /* Custom scrollbar for TOC */
@@ -162,5 +161,3 @@
 .toc-content::-webkit-scrollbar-thumb:hover {
   background: #a8a8a8;
 }
-
-
