@@ -19,6 +19,7 @@ Here's a quick summary of my experiences, tooling development, research, and com
   - [Krueger](https://github.com/logangoins/Krueger), Proof of Concept (PoC) .NET tool for remotely disabling EDR with weaponized WDAC to enable lateral movement.
   - [Cable](https://github.com/logangoins/Cable), .NET post-exploitation toolkit for Active Directory reconnaissance and exploitation.
 - **Major Blogs:**
+  - [Operating Outside the Box: NTLM Relaying Low-Privilege HTTP Auth to LDAP](https://specterops.io/blog/2025/08/22/operating-outside-the-box-ntlm-relaying-low-privilege-http-auth-to-ldap/)
   - [Make Sure to Use SOAP(y) – An Operators Guide to Stealthy AD Collection Using ADWS](https://specterops.io/blog/2025/07/25/make-sure-to-use-SOAPy-an-operators-guide-to-stealthy-ad-collection-using-adws/) 
   - [Attacking and Defending Configuration Manager - An Attackers Easy Win](https://logan-goins.com/2025-04-25-sccm/)
   - [SOAPy: Stealthy enumeration of Active Directory environments through ADWS](https://securityintelligence.com/x-force/stealthy-enumeration-of-active-directory-environments-through-adws/) 
@@ -31,12 +32,11 @@ Here's a quick summary of my experiences, tooling development, research, and com
   - [CompTIA Cybersecurity Analyst+ ce](https://www.credly.com/badges/9de0a3bd-34af-4392-8648-27ad6599404f/public_url) (CySA+) - April 2023 to April 2026
   - [CompTIA Security+ ce](https://www.credly.com/badges/34ed53f8-719f-40fd-8ceb-8a98ef2d1f48/public_url) - April 2023 to April 2026
 - **Community Involvement:**
+  - Open-source community [contributions](https://github.com/SpecterOps/BloodHound/issues/1016) to BloodHound documentation regarding AllExtendedRights abuse information
   - [Collegiate Penetration Testing Competition](https://cp.tc/) (CPTC) Global Finalist and U.S. Central Regional Champion 2023-2024
   - [SimSpace National Cyber Cup Red Team Competition](https://simspace.com/cyber-cup/) 3rd Place (2024)
   - [UTSA RowdyCon Security Conference](https://www.rowdycon.org/) King of The Hill (KoTH) 1st place and Panel Speaker (2024)
   - UTSA Computer Security Association (CSA) Competitions Coordinator (Oct 2023 to August 2024)
-  - Open-source community [contributions](https://github.com/SpecterOps/BloodHound/issues/1016) to BloodHound documentation regarding AllExtendedRights abuse information
-
 ---
 
 
