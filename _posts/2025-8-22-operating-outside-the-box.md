@@ -1,5 +1,5 @@
 ---
-layout: post-with-toc
+layout: post
 title: Operating Outside the Box - NTLM Relaying Low-Privilege HTTP Auth to LDAP
 thumbnail-img: https://logan-goins.com/assets/img/ldap/figure-1.png
 share-img: https://logan-goins.com/assets/img/ldap/figure-1.png
