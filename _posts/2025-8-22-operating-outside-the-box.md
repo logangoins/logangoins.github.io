@@ -135,7 +135,9 @@ proxychains4 certipy find -dc-only -ldap-scheme ldap -dc-ip 10.2.10.10 -u 'domai
 
 A simplified diagram visualizing the relay, the required steps, and all the moving parts is shown below:
 
-![](https://lh7-rt.googleusercontent.com/docsz/AD_4nXeG3qnnXTkXjD_qXpm3WiaoNk3yrEiEqEnqRDYJKLDYVhpJnIH1N4l2ZNPu95_kdFeURQsQjObKWFzDwyTpAEVGsVbhUJUOe0_41k1eFQg1L5YPvHspq5mF2sJev5DhD39lNiwt-g?key=lgxa9ijeDVJzWrOBSz_ZPw)## Defensive Considerations: Keeping the Attackers Battling EDR
+![](https://lh7-rt.googleusercontent.com/docsz/AD_4nXeG3qnnXTkXjD_qXpm3WiaoNk3yrEiEqEnqRDYJKLDYVhpJnIH1N4l2ZNPu95_kdFeURQsQjObKWFzDwyTpAEVGsVbhUJUOe0_41k1eFQg1L5YPvHspq5mF2sJev5DhD39lNiwt-g?key=lgxa9ijeDVJzWrOBSz_ZPw)
+
+## Defensive Considerations: Keeping the Attackers Battling EDR
 
 Since the main use-case of this technique is to get off host and away from EDR, the best thing defenders can do is attempt to keep adversaries on the endpoint, where endpoint monitoring and logging occur. Stealing any credential is bad, but stealing material credentials on hosts such as NT hashes or plaintext passwords is usually going to be logged, set off alerts, or result in preventative measures being executed. Effectively stealing credentials from the current context using HTTP auth will have significantly less telemetry on host, but is only possible when LDAP signing and LDAPS channel binding are not required on DCs. Enabling LDAP signing and LDAPS channel binding will force an attacker to steal credentials on-host for proxying tooling into the network, whether it be Kerberos tickets or NT hashes. EDR has a much greater likelihood of stopping material credential stealing than the sending of a simple HTTP request.
 
