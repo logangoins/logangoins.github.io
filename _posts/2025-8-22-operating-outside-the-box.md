@@ -8,7 +8,7 @@ tags: [Windows, Active Directory, Adversary Simulation]
 
 This blog was originally published on the SpecterOps blog [here](https://specterops.io/blog/2025/08/22/operating-outside-the-box-ntlm-relaying-low-privilege-http-auth-to-ldap/)
 
-***TL;DR**** When operating out of a ceded access or phishing payload with no credential material, you can use low-privilege HTTP authentication from the current user context to perform a proxied relay to LDAP, then execute tooling through the SOCKS5 proxy to complete LDAP- related objectives completely off-host. *
+***TL;DR*** When operating out of a ceded access or phishing payload with no credential material, you can use low-privilege HTTP authentication from the current user context to perform a proxied relay to LDAP, then execute tooling through the SOCKS5 proxy to complete LDAP- related objectives completely off-host. *
 
 ## Introduction
 
