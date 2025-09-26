@@ -4,7 +4,7 @@ Additionally, I love to continuously learn and develop new tools and tradecraft 
 
 ---
 
-Here's a quick summary of my experiences, tooling development, research, and community involvement:
+Here's a quick summary of my experiences, tooling development, and research:
 
 - **Experience:**
   - Associate Consultant, Adversary Simulation at [SpecterOps](https://specterops.io/) (May 2025 to Present)
@@ -31,13 +31,6 @@ Here's a quick summary of my experiences, tooling development, research, and com
   - [Offensive Security Certified Professional](https://www.credential.net/48d2390c-1cf7-4d2f-98bd-d31b57b0488f#acc.AOPZDCus) (OSCP)
   - [CompTIA Cybersecurity Analyst+ ce](https://www.credly.com/badges/9de0a3bd-34af-4392-8648-27ad6599404f/public_url) (CySA+) - April 2023 to April 2026
   - [CompTIA Security+ ce](https://www.credly.com/badges/34ed53f8-719f-40fd-8ceb-8a98ef2d1f48/public_url) - April 2023 to April 2026
-- **Community Involvement:**
-  - Open-source community [contributions](https://github.com/SpecterOps/BloodHound/issues/1016) to BloodHound documentation regarding AllExtendedRights abuse information
-  - [Collegiate Penetration Testing Competition](https://cp.tc/) (CPTC) Global Finalist and U.S. Central Regional Champion 2023-2024
-  - [SimSpace National Cyber Cup Red Team Competition](https://simspace.com/cyber-cup/) 3rd Place (2024)
-  - [UTSA RowdyCon Security Conference](https://www.rowdycon.org/) King of The Hill (KoTH) 1st place and Panel Speaker (2024)
-  - UTSA Computer Security Association (CSA) Competitions Coordinator (Oct 2023 to August 2024)
-
 ---
 
 
