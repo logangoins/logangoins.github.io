@@ -1,4 +1,4 @@
-Hi I'm Logan Goins, an Associate Consultant on the Adversary Simulation team at SpecterOps. As part of Consulting Services, I perform Penetration Tests and Red Team Operations on clients looking to measure impact in the case of a breach or improve their detection and response capabilities. 
+Hi I'm Logan Goins, an Associate Consultant on the Adversary Simulation team at SpecterOps. As part of Consulting Services, I perform Penetration Tests and Red Team Operations for clients looking to measure impact in the case of a breach or improve their detection and response capabilities. 
 
 Additionally, I love to continuously learn and develop new tools and tradecraft for exploiting or abusing easily mis-configurable or complex technologies which may enable risk for an organization.
 
