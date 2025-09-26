@@ -31,6 +31,7 @@ Here's a quick summary of my experiences, tooling development, and research:
   - [Offensive Security Certified Professional](https://www.credential.net/48d2390c-1cf7-4d2f-98bd-d31b57b0488f#acc.AOPZDCus) (OSCP)
   - [CompTIA Cybersecurity Analyst+ ce](https://www.credly.com/badges/9de0a3bd-34af-4392-8648-27ad6599404f/public_url) (CySA+) - April 2023 to April 2026
   - [CompTIA Security+ ce](https://www.credly.com/badges/34ed53f8-719f-40fd-8ceb-8a98ef2d1f48/public_url) - April 2023 to April 2026
+  
 ---
 
 
