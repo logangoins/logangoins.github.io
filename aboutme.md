@@ -13,12 +13,14 @@ Here's a quick summary of my experiences, tooling development, and research:
 - **Education:**
   - Bachelors in Cybersecurity, [The University of Texas at San Antonio](https://www.utsa.edu/) (August 2023 to August 2026)
 - **Tooling Development:**
+  - [BadTakeover](https://github.com/logangoins/BadTakeover-BOF), Beacon Object File (BOF) for Using the BadSuccessor Technique for Account Takeover
   - [SharpSuccessor](https://github.com/logangoins/SharpSuccessor), .NET Proof of Concept (POC) for fully weaponizing Yuval Gordon’s (@YuG0rd) BadSuccessor attack from Akamai.
   - [SOAPy](https://github.com/xforcered/SOAPy), Proof of Concept (PoC) Python tool for conducting offensive interaction with Active Directory Web Services (ADWS) from Linux hosts. 
   - [Stifle](https://github.com/logangoins/Stifle), a .NET post-exploitation utility to exploit strong explicit certificate mappings (ESC14) for account takeover in Active Directory environments.
   - [Krueger](https://github.com/logangoins/Krueger), Proof of Concept (PoC) .NET tool for remotely disabling EDR with weaponized WDAC to enable lateral movement.
   - [Cable](https://github.com/logangoins/Cable), .NET post-exploitation toolkit for Active Directory reconnaissance and exploitation.
 - **Major Blogs:**
+  - [The (Near) Return of the King: Account Takeover Using the BadSuccessor Technique](https://specterops.io/blog/2025/10/20/the-near-return-of-the-king-account-takeover-using-the-badsuccessor-technique/)
   - [Operating Outside the Box: NTLM Relaying Low-Privilege HTTP Auth to LDAP](https://specterops.io/blog/2025/08/22/operating-outside-the-box-ntlm-relaying-low-privilege-http-auth-to-ldap/)
   - [Make Sure to Use SOAP(y) – An Operators Guide to Stealthy AD Collection Using ADWS](https://specterops.io/blog/2025/07/25/make-sure-to-use-SOAPy-an-operators-guide-to-stealthy-ad-collection-using-adws/) 
   - [Attacking and Defending Configuration Manager - An Attackers Easy Win](https://logan-goins.com/2025-04-25-sccm/)
