@@ -9,7 +9,9 @@ This blog was originally published on the SpecterOps blog [here](https://specter
 
 ***TL;DR*** – After Microsoft patched Yuval Gordon’s BadSuccessor privilege escalation technique, BadSuccessor returned with [another blog from Yuval](https://www.akamai.com/blog/security-research/badsuccessor-is-dead-analyzing-badsuccessor-patch), briefly mentioning to the community that attackers can still abuse dMSAs to take over any object where we have a write primitive. This mention did not gather significant attention from the community, leaving an operational gap for dMSA related tooling and attention. This blog dives into why dMSA abuse is still a problem, the release of a new Beacon object file (BOF) labeled [BadTakeover](https://github.com/logangoins/BadTakeover-BOF), plus additions to SharpSuccessor, all to show that BadSuccessor’s impact as a technique (not a vulnerability) will still hold a lasting effect.
 
-![](https://specterops.io/wp-content/uploads/sites/3/2025/10/image_c520f0.jpeg?w=1024)There’s some heavy exposition surrounding the context of after-patch dMSA abuse and how Yuval’s new technique relates with previous discretionary access control list (DACL) related attack vectors. I recommend reading throughout this post to understand the full context, but if you would like to skip to the practical examples, jump to the “An After Patch Practical Example to dMSA Weaponization” section.
+![](https://specterops.io/wp-content/uploads/sites/3/2025/10/image_c520f0.jpeg?w=1024)
+
+There’s some heavy exposition surrounding the context of after-patch dMSA abuse and how Yuval’s new technique relates with previous discretionary access control list (DACL) related attack vectors. I recommend reading throughout this post to understand the full context, but if you would like to skip to the practical examples, jump to the “An After Patch Practical Example to dMSA Weaponization” section.
 
 ## Introduction
 
@@ -45,7 +47,9 @@ For the BadSuccessor account takeover attack, the three main requirements are th
 2. GenericWrite/WriteProperty over a target object or the *msDS-SupersededManagedAccountLink* and m*sDS-SupersededServiceAccountState* attributes
 3. At least a single Windows Server 2025 DC must be set up in the domain
 
-![](https://specterops.io/wp-content/uploads/sites/3/2025/10/image_90a07a.png?w=1024)Scarily enough, the least likely requirement (right now) is that not enough Windows Server 2025 DCs are configured, which will obviously change in the near future as System Administrators update/add new DCs for the additional security features and active patches.
+![](https://specterops.io/wp-content/uploads/sites/3/2025/10/image_90a07a.png?w=1024)
+
+Scarily enough, the least likely requirement (right now) is that not enough Windows Server 2025 DCs are configured, which will obviously change in the near future as System Administrators update/add new DCs for the additional security features and active patches.
 
 In this [BloodHoundBasics](https://x.com/martinsohndk/status/1926140777165369569) post, [Martin Sohn](https://x.com/martinsohndk) showcased some analysis on all active SpecterOps client BloodHound Enterprise environments, mentioning that every single environment SpecterOps had data on had non-Tier Zero objects which had the capability for BadSuccessor to be abused (CreateChild on an OU). This means that once Windows Server 2025 is more established, account takeover will be possible with common Write access over an object with this technique 9 out of 10 times. This is mostly possible because CreateChild over an OU is staggeringly common and will allow adversaries to perform routine account takeover with a completely separate set of requirements than the previous techniques. This makes account takeover across the board significantly more likely as time goes on, allowing attackers more options and less focus on AD CS for performing takeover on user objects.
 
@@ -55,19 +59,27 @@ In this [BloodHoundBasics](https://x.com/martinsohndk/status/1926140777165369569
 
 With little to no attention being focused on what this technique entails for the future of Active Directory related security, I decided I would write this blog to explain the technique and why it is important. Additionally, I not only modified my already present .NET utility SharpSuccessor to work properly after-patch, but also created a BOF to additionally operationalize/weaponize this technique for Red Team Operations. [BadTakeover](https://github.com/logangoins/BadTakeover-BOF) is a complete rewrite of SharpSuccessor in C using the native Windows LDAP API to create and weaponize a dMSA object to execute over C2. This means I have officially learned how to write a proper BOF since my last [SpecterOps blog post](https://specterops.io/blog/2025/08/22/operating-outside-the-box-ntlm-relaying-low-privilege-http-auth-to-ldap/) on relaying low-privilege user context to LDAP. A screenshot from that article documenting my skill issue can be found below:
 
-![](https://specterops.io/wp-content/uploads/sites/3/2025/10/image_caded6.png?w=1024)Before starting to write the BOF, I decided I would expand SharpSuccessor to perform this technique first. Really the only modification which was required for SharpSuccessor to function properly after patch was the write operation on the target object which will be taken over, specifically the msDS-SupersededManagedAccountLink attribute which is written with the distinguishedName (DN) attribute of the malicious *dMSA* , and the msDS-SupersededServiceAccountState which is written with 2 to complete the “Migration” process.
+![](https://specterops.io/wp-content/uploads/sites/3/2025/10/image_caded6.png?w=1024)
+
+Before starting to write the BOF, I decided I would expand SharpSuccessor to perform this technique first. Really the only modification which was required for SharpSuccessor to function properly after patch was the write operation on the target object which will be taken over, specifically the msDS-SupersededManagedAccountLink attribute which is written with the distinguishedName (DN) attribute of the malicious *dMSA* , and the msDS-SupersededServiceAccountState which is written with 2 to complete the “Migration” process.
 
 SharpSuccessor functions just about the exact same as it did pre-patch, just with some additional post-patch functionality. We can utilize the OU TestOU’s location, an account which we have GenericWrite access over which we want to impersonate (in this case, domainadmin, our current context domainuser, and a name for our malicious dMSA object), all to create and weaponize a dMSA object for account impersonation.
 
 `SharpSuccessor.exe add /impersonate:domainadmin /path:"OU=TestOU,DC=ludus,DC=domain" /account:domainuser /name:attacker_dMSA`
 
-![](https://specterops.io/wp-content/uploads/sites/3/2025/10/image_57193f.png?w=1024)Then, like usual, we can utilize a ticket from our current context which we can request with tgtdeleg or dump from the Local Security Authority (LSA), to request a ticket under the dMSA’s context using Rubeus’s /dmsa authentication.
+![](https://specterops.io/wp-content/uploads/sites/3/2025/10/image_57193f.png?w=1024)
+
+Then, like usual, we can utilize a ticket from our current context which we can request with tgtdeleg or dump from the Local Security Authority (LSA), to request a ticket under the dMSA’s context using Rubeus’s /dmsa authentication.
 
 `Rubeus.exe asktgs /targetuser:attacker_dmsa$ /service:krbtgt/ludus.domain /opsec /dmsa /nowrap /ptt /ticket:doIFl…`
 
-![](https://specterops.io/wp-content/uploads/sites/3/2025/10/image_e301ad.png?w=1024)Now that the dMSA ticket is in memory, it will inherit the permissions of whatever account it is set to impersonate (in this case, the domainadmin user). As an example of the impact of administrative access after impersonation, here is a listing of the C$ share on the DC, meaning full domain compromise.
+![](https://specterops.io/wp-content/uploads/sites/3/2025/10/image_e301ad.png?w=1024)
 
-![](https://specterops.io/wp-content/uploads/sites/3/2025/10/image_7073d3.png)As for BadTakeover, the new tool can be found at [https://github.com/logangoins/BadTakeover-BOF](https://github.com/logangoins/BadTakeover-BOF). Once you’ve compiled the BOF with make, and uploaded it to your favorite C2, it’s time to execute the attack. The parameters for BadTakeover are essentially the same as SharpSuccessor, just slightly more verbose. The parameters are:
+Now that the dMSA ticket is in memory, it will inherit the permissions of whatever account it is set to impersonate (in this case, the domainadmin user). As an example of the impact of administrative access after impersonation, here is a listing of the C$ share on the DC, meaning full domain compromise.
+
+![](https://specterops.io/wp-content/uploads/sites/3/2025/10/image_7073d3.png)
+
+As for BadTakeover, the new tool can be found at [https://github.com/logangoins/BadTakeover-BOF](https://github.com/logangoins/BadTakeover-BOF). Once you’ve compiled the BOF with make, and uploaded it to your favorite C2, it’s time to execute the attack. The parameters for BadTakeover are essentially the same as SharpSuccessor, just slightly more verbose. The parameters are:
 
 
 | Data Type | Value                                         |
@@ -80,11 +92,15 @@ SharpSuccessor functions just about the exact same as it did pre-patch, just wit
 
 Execution of this new BOF through [Mythic](https://github.com/its-a-feature/Mythic) and the [Apollo](https://github.com/MythicAgents/Apollo) agent as an example looks like:
 
-![](https://specterops.io/wp-content/uploads/sites/3/2025/10/image_3624d4.png?w=1024)We can see the attacker_dmsa object has been created and weaponized, along with the domainadmin object being written to successfully, allowing account takeover.
+![](https://specterops.io/wp-content/uploads/sites/3/2025/10/image_3624d4.png?w=1024)
+
+We can see the attacker_dmsa object has been created and weaponized, along with the domainadmin object being written to successfully, allowing account takeover.
 
 Then, just as before, utilize Rubeus to request a ticket which impersonates the target object, and as an example list file contents of the C$ share on the DC to showcase administrative access.
 
-![](https://specterops.io/wp-content/uploads/sites/3/2025/10/image_c34e5c.png?w=1024)As a side note: as of now, dMSA authentication is only integrated into Rubeus. For the future, I hope that BOF-related Kerberos repositories such as [Kerbeus-BOF](https://github.com/RalfHacker/Kerbeus-BOF) or [nanorobeus](https://github.com/wavvs/nanorobeus) implement this change so the dMSA abuse process can be executed primarily through an entirely BOF approach on Red Team Operations.
+![](https://specterops.io/wp-content/uploads/sites/3/2025/10/image_c34e5c.png?w=1024)
+
+As a side note: as of now, dMSA authentication is only integrated into Rubeus. For the future, I hope that BOF-related Kerberos repositories such as [Kerbeus-BOF](https://github.com/RalfHacker/Kerbeus-BOF) or [nanorobeus](https://github.com/wavvs/nanorobeus) implement this change so the dMSA abuse process can be executed primarily through an entirely BOF approach on Red Team Operations.
 
 ## Conclusion
 
