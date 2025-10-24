@@ -1,6 +1,6 @@
 ---
 layout: post
-title: The (Near) Return of the King: Account Takeover Using the BadSuccessor Technique
+title: The (Near) Return of the King - Account Takeover Using the BadSuccessor Technique
 thumbnail-img: https://logan-goins.com/assets/img/dmsa/figure-1.png
 share-img: https://logan-goins.com/assets/img/dmsa/figure-1.png
 tags: [Windows, Active Directory, Adversary Simulation]
