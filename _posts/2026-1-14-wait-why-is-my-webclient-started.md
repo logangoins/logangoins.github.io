@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Wait, Why is my WebClient Started?: SCCM Hierarchy Takeover via NTLM Relay to LDAP
+title: Wait, Why is my WebClient Started? - SCCM Hierarchy Takeover via NTLM Relay to LDAP
 thumbnail-img: https://logan-goins.com/assets/img/sccm-thumbnail.png
 share-img: https://logan-goins.com/assets/img/img/sccm-thumbnail.png
 tags: [Windows, Active Directory, Adversary Simulation]
