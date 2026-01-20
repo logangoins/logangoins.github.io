@@ -21,6 +21,7 @@ Here's a quick summary of my experiences, tooling development, and research:
   - [Cable](https://github.com/logangoins/Cable), .NET post-exploitation toolkit for Active Directory reconnaissance and exploitation. (Nov 2024)
   - [SOAPy](https://github.com/xforcered/SOAPy), Proof of Concept (PoC) Python tool for conducting offensive interaction with Active Directory Web Services (ADWS) from Linux hosts. (Aug 2024)
 - **Major Blogs:**
+  - [Wait, Why is my WebClient Started? - SCCM Hierarchy Takeover via NTLM Relay to LDAP](https://logan-goins.com/2026-01-14-wait-why-is-my-webclient-started/) (Jan 2026)
   - [The (Near) Return of the King: Account Takeover Using the BadSuccessor Technique](https://specterops.io/blog/2025/10/20/the-near-return-of-the-king-account-takeover-using-the-badsuccessor-technique/) (Oct 2025)
   - [Operating Outside the Box: NTLM Relaying Low-Privilege HTTP Auth to LDAP](https://specterops.io/blog/2025/08/22/operating-outside-the-box-ntlm-relaying-low-privilege-http-auth-to-ldap/) (Aug 2025)
   - [Make Sure to Use SOAP(y) – An Operators Guide to Stealthy AD Collection Using ADWS](https://specterops.io/blog/2025/07/25/make-sure-to-use-SOAPy-an-operators-guide-to-stealthy-ad-collection-using-adws/) (July 2025)
