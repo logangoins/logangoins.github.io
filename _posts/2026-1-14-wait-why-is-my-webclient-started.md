@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: post-with-toc
 title: Wait, Why is my WebClient Started? - SCCM Hierarchy Takeover via NTLM Relay to LDAP
 thumbnail-img: https://logan-goins.com/assets/img/sccm-thumbnail.png
 share-img: https://logan-goins.com/assets/img/img/sccm-thumbnail.png
@@ -7,7 +7,7 @@ tags: [Windows, Active Directory, Adversary Simulation]
 ---
 This blog was originally published on the SpecterOps blog [here](https://specterops.io/blog/2026/01/14/wait-why-is-my-webclient-started-sccm-hierarchy-takeover-via-ntlm-relay-to-ldap/)
 
-***TL;DR**** – During automatic client push installation, an SCCM site server automatically attempts to map WebDav shares on clients, starting WebClient when installed. This allows an adversary to coerce both high-privilege siteserver machine account NTLM authentication and client push installation account HTTP NTLM authentication and perform an NTLM relay to LDAP for SCCM or (sometimes) Active Directory takeover. *
+***TL;DR*** – During automatic client push installation, an SCCM site server automatically attempts to map WebDav shares on clients, starting WebClient when installed. This allows an adversary to coerce both high-privilege siteserver machine account NTLM authentication and client push installation account HTTP NTLM authentication and perform an NTLM relay to LDAP for SCCM or (sometimes) Active Directory takeover. 
 
 ## Acknowledgements and Prior Work
 
