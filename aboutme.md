@@ -1,18 +1,17 @@
-Hi I'm Logan Goins, an Associate Adversary Simulation Operator at SpecterOps. As part of Consulting Services, I perform Penetration Tests and Red Team Operations for clients looking to measure impact in the case of a breach or improve their detection and response capabilities. 
+Hi, I'm Logan Goins, an Associate Adversary Simulation Operator at SpecterOps while earning a Bachelors in Cybersecurity from UT San Antonio. As part of the Adversary Simulation team at SpecterOps, I simulate an attacker to perform penetration testing assessments and red team operations for clients looking to measure impact in the case of a breach or improve their detection and response capabilities. 
 
-Additionally, I love to continuously learn and develop new tools and tradecraft for exploiting or abusing easily mis-configurable or complex technologies which may enable risk for an organization. My primary interests are in Active Directory and other identity focused tradecraft, including Active Directory Certificate Services (AD CS), System Center Configuration Manager (SCCM), Entra ID, and more. I'm also the author of SharpSuccessor, SOAPy, and others. 
-
+My primary interests are in Active Directory and other identity focused offensive tradecraft, including Active Directory Certificate Services (ADCS), System Center Configuration Manager (SCCM), Active Directory Web Services (ADWS), Entra ID, and more. I’m also the author of open-source offensive tools such as SharpSuccessor, SOAPy, Cable, Krueger, and others.
 
 ---
 
-Here's a quick summary of my experiences, tooling development, and research:
+A summary of my security research, capability/tradecraft development, community contributions, and certifications, can be found below:
 
 - **Experience:**
   - Associate Consultant, Adversary Simulation at [SpecterOps](https://specterops.io/) (May 2025 to Present)
   - Offensive Security Consultant Co-op at [IBM X-Force Red](https://www.ibm.com/services/offensive-security) (January 2025 to May 2025)
   - Offensive Security Consultant Intern at [IBM X-Force Red](https://www.ibm.com/services/offensive-security) (May 2024 to August 2024)
 - **Education:**
-  - Bachelors in Cybersecurity, [The University of Texas at San Antonio](https://www.utsa.edu/) (August 2023 to August 2026)
+  - Bachelors in Cybersecurity, [UT San Antonio](https://www.utsa.edu/) (In progress)
 - **Tooling Development:**
   - [BadTakeover](https://github.com/logangoins/BadTakeover-BOF), Beacon Object File (BOF) for Using the BadSuccessor Technique for Account Takeover (Sep 2025)
   - [SharpSuccessor](https://github.com/logangoins/SharpSuccessor), .NET Proof of Concept (POC) for fully weaponizing Yuval Gordon’s (@YuG0rd) BadSuccessor attack from Akamai. (May 2025)
