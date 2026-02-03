@@ -1,6 +1,6 @@
 Hi, I'm Logan Goins, an Associate Adversary Simulation Operator at SpecterOps while earning a Bachelors in Cybersecurity from UT San Antonio. As part of the Adversary Simulation team at SpecterOps, I simulate an attacker to perform penetration testing assessments and red team operations for clients looking to measure impact in the case of a breach or improve their detection and response capabilities. 
 
-My primary interests are in Active Directory and other identity focused offensive tradecraft, including Active Directory Certificate Services (ADCS), System Center Configuration Manager (SCCM), Active Directory Web Services (ADWS), Entra ID, and more. I’m also the author of open-source offensive tools such as SharpSuccessor, SOAPy, Cable, Krueger, and others.
+My primary interests are in Active Directory and other identity focused offensive tradecraft, including Active Directory Certificate Services (ADCS), System Center Configuration Manager (SCCM), Active Directory Web Services (ADWS), Entra ID, and more. I’m also the author of open-source offensive tools such as SharpSuccessor, SOAPy, and others.
 
 ---
 
