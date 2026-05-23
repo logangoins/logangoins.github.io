@@ -1,4 +1,4 @@
-Hi, I'm Logan Goins, an Associate Adversary Simulation Operator at SpecterOps while earning a Bachelors in Cybersecurity from UT San Antonio. As part of the Adversary Simulation team at SpecterOps, I simulate an attacker to perform penetration testing assessments and red team operations for clients looking to measure impact in the case of a breach or improve their detection and response capabilities. 
+Hi, I'm Logan Goins, an Associate Adversary Simulation Operator at SpecterOps. As part of the Adversary Simulation team at SpecterOps, I simulate an attacker to perform red team operations and penetration testing assessments for SpecterOps clients looking to improve their detection and response capabilities or measure impact in the case of a breach.
 
 My primary interests are in Active Directory and other identity focused offensive tradecraft, including Active Directory Certificate Services (ADCS), System Center Configuration Manager (SCCM), Active Directory Web Services (ADWS), Entra ID, and more. I’m also the author of open-source offensive tools such as SharpSuccessor, SOAPy, and others.
 
@@ -7,7 +7,8 @@ My primary interests are in Active Directory and other identity focused offensiv
 A summary of my security research, capability/tradecraft development, community contributions, and certifications, can be found below:
 
 - **Experience:**
-  - Associate Consultant, Adversary Simulation at [SpecterOps](https://specterops.io/) (May 2025 to Present)
+  - Consultant, Adversary Simulation at [SpecterOps](https://specterops.io) (May 2026 - Present)
+  - Associate Consultant, Adversary Simulation at [SpecterOps](https://specterops.io/) (May 2025 to May 2026)
   - Offensive Security Consultant Co-op at [IBM X-Force Red](https://www.ibm.com/services/offensive-security) (January 2025 to May 2025)
   - Offensive Security Consultant Intern at [IBM X-Force Red](https://www.ibm.com/services/offensive-security) (May 2024 to August 2024)
 - **Education:**
@@ -30,6 +31,8 @@ A summary of my security research, capability/tradecraft development, community 
   - [NTLM Relaying to LDAP - The Hail Mary of Network Compromise](https://logan-goins.com/2024-07-23-ldap-relay/) (July 2024)
   - [Active Directory Certificate Services (AD CS) - A Beautifully Vulnerable and Mis-configurable Mess](https://logan-goins.com/2024-05-04-ADCS/) (May 2024)
 - **Certifications:**
+  - [Adversary Tactics: Identity Driven Offensive Tradecraft](https://www.credly.com/badges/e51a9b64-63be-4a35-b229-fdd5b44bb9bc/public_url) (IDOT)
+  - [Attacking and Defending Azure & M365](https://www.xintra.org/certificates/4253:1vqzK8:C5_pdoP3YM_pCKSKHPY4-TwnJo41yeFjKsX7qJHUY_Y)
   - [Certified Red Team Operator](https://eu.badgr.com/public/assertions/LE9IwKZQT72LXdXRbPJwQw) (CRTO)
   - [Offensive Security Certified Professional](https://www.credential.net/48d2390c-1cf7-4d2f-98bd-d31b57b0488f#acc.AOPZDCus) (OSCP)
   - [CompTIA Cybersecurity Analyst+ ce](https://www.credly.com/badges/9de0a3bd-34af-4392-8648-27ad6599404f/public_url) (CySA+) - April 2023 to April 2026
