@@ -1,4 +1,6 @@
-Logan Goins is an Consultant on the [SpecterOps Adversary Simulation team](https://specterops.io/services/#red-team-engagements), where he leads teams of operators and executes Adversary Simulation exercises for SpecterOps clients. His published research focuses on Active Directory, identity attack paths, and operationalizing offensive security capability. He is the author of a variety of offensive identity driven tools including SOAPy, SharpSuccessor, and others.
+Logan Goins is a lead operator and security consultant on the [SpecterOps Adversary Simulation Services team](https://specterops.io/services/#red-team-engagements), where he leads teams of operators and executes advanced Adversary Simulation exercises for enterprise clients. His published research focuses on Active Directory, identity attack paths, and operationalizing offensive security capability. He is the author of a variety of offensive identity-driven tools including SOAPy and SharpSuccessor.
+
+A summary of Logan's security research, capability/tradecraft development, and community contributions, can be found below:
 
 ---
 
@@ -10,7 +12,7 @@ A summary of his security research, capability/tradecraft development, community
   - Offensive Security Consultant Co-op at [IBM X-Force Red](https://www.ibm.com/services/offensive-security) (January 2025 to May 2025)
   - Offensive Security Consultant Intern at [IBM X-Force Red](https://www.ibm.com/services/offensive-security) (May 2024 to August 2024)
 - **Education:**
-  - Bachelors in Cybersecurity, [UT San Antonio](https://www.utsa.edu/) (In progress)
+  - Bachelor of Business Administration, Cybersecurity, [UT San Antonio](https://www.utsa.edu/)
 - **Tooling Development:**
   - [BadTakeover](https://github.com/logangoins/BadTakeover-BOF), Beacon Object File (BOF) for Using the BadSuccessor Technique for Account Takeover (Sep 2025)
   - [SharpSuccessor](https://github.com/logangoins/SharpSuccessor), .NET Proof of Concept (POC) for fully weaponizing Yuval Gordon’s (@YuG0rd) BadSuccessor attack from Akamai. (May 2025)
@@ -30,13 +32,16 @@ A summary of his security research, capability/tradecraft development, community
   - [NTLM Relaying to LDAP - The Hail Mary of Network Compromise](https://logan-goins.com/2024-07-23-ldap-relay/) (July 2024)
   - [Active Directory Certificate Services (AD CS) - A Beautifully Vulnerable and Mis-configurable Mess](https://logan-goins.com/2024-05-04-ADCS/) (May 2024)
 - **Certifications:**
+  - Offensive Azure AD (Entra ID) and Hybrid AD Security, Outsider Security
   - [Adversary Tactics: Identity Driven Offensive Tradecraft](https://www.credly.com/badges/e51a9b64-63be-4a35-b229-fdd5b44bb9bc/public_url) (IDOT)
   - [Attacking and Defending Azure & M365](https://www.xintra.org/certificates/4253:1vqzK8:C5_pdoP3YM_pCKSKHPY4-TwnJo41yeFjKsX7qJHUY_Y)
   - [Certified Red Team Operator](https://eu.badgr.com/public/assertions/LE9IwKZQT72LXdXRbPJwQw) (CRTO)
   - [Offensive Security Certified Professional](https://www.credential.net/48d2390c-1cf7-4d2f-98bd-d31b57b0488f#acc.AOPZDCus) (OSCP)
   - [CompTIA Cybersecurity Analyst+ ce](https://www.credly.com/badges/9de0a3bd-34af-4392-8648-27ad6599404f/public_url) (CySA+) - April 2023 to April 2026
   - [CompTIA Security+ ce](https://www.credly.com/badges/34ed53f8-719f-40fd-8ceb-8a98ef2d1f48/public_url) - April 2023 to April 2026
-  
+- **Conference Talks:**
+  - RedTreat 2026, Barcelona Spain, Wait, Why is my WebClient Started? - Remote WebClient Start in SCCM (September 2026)
+    
 ---
 
 
