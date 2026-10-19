@@ -4,8 +4,6 @@ A summary of Logan's security research, capability/tradecraft development, and c
 
 ---
 
-A summary of his security research, capability/tradecraft development, community contributions, and certifications, can be found below:
-
 - **Experience:**
   - Consultant, Adversary Simulation at [SpecterOps](https://specterops.io) (May 2026 - Present)
   - Associate Consultant, Adversary Simulation at [SpecterOps](https://specterops.io/) (May 2025 to May 2026)
